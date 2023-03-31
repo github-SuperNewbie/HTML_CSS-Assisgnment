@@ -1,0 +1,1655 @@
+Delivered-To: shank.vattigunta@gmail.com
+Received: by 2002:a05:6a10:87d5:b0:478:9fb3:c546 with SMTP id g21csp246272pxr;
+        Thu, 30 Mar 2023 22:51:11 -0700 (PDT)
+X-Received: by 2002:a0d:d8cc:0:b0:53c:5b6f:f5e6 with SMTP id a195-20020a0dd8cc000000b0053c5b6ff5e6mr25059711ywe.12.1680241871575;
+        Thu, 30 Mar 2023 22:51:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1680241871; cv=none;
+        d=google.com; s=arc-20160816;
+        b=JMER243YypNCecEdV+aERPTtfEgsdqlEkU8RHu3wKKCadpZ+5G+P9iIfxNo+4AjuD3
+         FR8CnxfhSKdgoSizhUAdQ/v4c0hiJhdWqCa1GLbP7PmslmoMQdi4GzPBQO5u56pX5fzC
+         ZsaITjiquZuIZcwECoqRuQnss+AYSYBvvqUv0dGYQ9VkbiISgQVZD08lnMNPVWenufHt
+         iLvOkUIUfAnDzIGK832ehVdSXp1dlAETIm/FMq5bFMGd87NeLR6fauDNOiH232ypsTRc
+         5K4LEH/meONnNwHzDCcDRikNGaDV8vsc3hhLj8wspOOFMJ/dh8/faxNPdFz6E66S36u5
+         oYyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:from:subject:date:message-id:feedback-id:mime-version
+         :dkim-signature;
+        bh=85SBTe4E2q7rxkoLOFQi0LTua5nU9TWT6vMleAdNpz4=;
+        b=muB3+MWBse2wggwQh+Eyi/8MbVfDHjatUSDABiuzU9lLzSStZjZtW9A4ZJl+xavsZX
+         8ArYsGWzzezhqe6hwyEPQ6Ejn9uyOZjixBYd+2pAGVE+boIbBBt5MPLL0QVKWTgAMgMP
+         jrb8EXcV0WMshr+UUqCu7uTqN/9+4JKtgpeaqY5RnRhVZEnbu9Rj+r+Rxwro2B44fMss
+         Eq52dytUpM2Rb2co5pUWX+2oTdd3hPymYMC+kCiagE7vUKY/KGi4kVpRGPkiq9LVmYWO
+         H2cjhu00nwnE2eKFxBxNHdjXkYYR7NEv1nmYy3ne6xx5YjcQYXNsLBp+r0TOWuBrRHpT
+         oFFg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@google.com header.s=20210112 header.b="ZohTu/0v";
+       spf=pass (google.com: domain of 3z3qmzbykahodmpkq-pcacgnrq-lmpcnjwemmejc.amk@trix.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3z3QmZBYKAHodmpkq-pcacgnrq-lmpcnjwemmejc.amk@trix.bounces.google.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=google.com
+Return-Path: <3z3QmZBYKAHodmpkq-pcacgnrq-lmpcnjwemmejc.amk@trix.bounces.google.com>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id j11-20020a81ec0b000000b00545a15231a0sor637093ywm.182.2023.03.30.22.51.11
+        for <shank.vattigunta@gmail.com>
+        (Google Transport Security);
+        Thu, 30 Mar 2023 22:51:11 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 3z3qmzbykahodmpkq-pcacgnrq-lmpcnjwemmejc.amk@trix.bounces.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@google.com header.s=20210112 header.b="ZohTu/0v";
+       spf=pass (google.com: domain of 3z3qmzbykahodmpkq-pcacgnrq-lmpcnjwemmejc.amk@trix.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3z3QmZBYKAHodmpkq-pcacgnrq-lmpcnjwemmejc.amk@trix.bounces.google.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=google.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112; t=1680241871;
+        h=to:from:subject:date:message-id:feedback-id:mime-version:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=85SBTe4E2q7rxkoLOFQi0LTua5nU9TWT6vMleAdNpz4=;
+        b=ZohTu/0vSVIbhmKxL6M8AqLO3kMwlm7dlXtXzYCxWdaOomlKgXCXt9vSnp+vj5OhAh
+         7wezOaoebByCbznmCjluXIUT3o7bnq78/oN4LDfxYZ8SEViu/12f5xqIvjKBd9RKJRMa
+         8XlNWbFOK2kqALXrZbdkqSPnfoB1zq92R6i8Zkr4ywgG59e7LHpLtezuxZOwBZzdTViq
+         Ntrp3vcUmmMwdLpTvE9hYnU29NSLYUePc5iCR4r1XpPwSjDXcpH1Ya6bRwIIPdEhyJ2B
+         PpzxoJ1FmcX3KpHP6FbmDo8DkcGwpXvAGYrLdL3WICTCW+hgLfyrOkuzPo6D/LCwu3bA
+         BdrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680241871;
+        h=to:from:subject:date:message-id:feedback-id:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=85SBTe4E2q7rxkoLOFQi0LTua5nU9TWT6vMleAdNpz4=;
+        b=Xh2b+nFtOqygzrP/ghdFHWukblQygsqkoMa5+Yr9J/vUVySvogaHIJXj7OsHrZT0nB
+         0FH5ofWE60KRWquURGR5uDbX0w1Fg7Ztr9fypcdGNriW2UrIhOZjFUdcbl04sWvuASEh
+         wIpRge1ZDx/NQCQgK2PhP9dsT980q1CGD6mUDyYxUSHnCI67Ijr41QNot79GVNqYn47q
+         rgTpScdZUjxs48n6ZIK9D3IouOBanWq3HdA4YJTLNh6EgOlxeADvB4RJHLZhKLSfGJMR
+         Gaw0U6ouQGqJgaUzsiQ1gGqCLcJaBD07M4B/vE0oncULw5Ool7stXpGMjXh2xTB2JFel
+         LInw==
+X-Gm-Message-State: AAQBX9fGoeMzljSYUHrQYVqqPuqxkGabw+j96HAv154OKYp1Y2bjHReZ
+	zH6AFAGtNz7hYxMYhT4hgagIcPpg5qwx6P+aHchzMqIk
+X-Google-Smtp-Source: AKy350a8Ovl8n5LaN6Tcet8eLOh/b2cqr/q8y6N4aSMhOKf3jIpxYBOYBkhw1CyskkIYp/UUGepBhrL2cE90meGfC+zPsw==
+MIME-Version: 1.0
+X-Received: by 2002:a81:b617:0:b0:544:b864:5532 with SMTP id
+ u23-20020a81b617000000b00544b8645532mr12325516ywh.3.1680241871104; Thu, 30
+ Mar 2023 22:51:11 -0700 (PDT)
+Feedback-ID: MailTypeResponseReceipt:GoogleForms
+X-GoogleForms-FormId: e/1FAIpQLSfO4wwjyolBtWRu5_piR5fbMyDdxxnnj3QbIoef0WwPW8nx0Q
+X-GoogleForms-CustomerDisplayName: Sacred Heart International College
+Message-ID: <000000000000dd3f0205f82bcb98@google.com>
+Date: Fri, 31 Mar 2023 05:51:11 +0000
+Subject: CSS Briefing
+From: Google Forms <forms-receipts-noreply@google.com>
+To: shank.vattigunta@gmail.com
+Content-Type: multipart/alternative; boundary="000000000000dd3ee805f82bcb95"
+
+--000000000000dd3ee805f82bcb95
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+
+Google Forms
+
+
+Thanks for filling out CSS Briefing
+Here's what was received.
+
+View score
+
+
+CSS Briefing
+
+Lets explore CSS
+
+
+Email *
+
+
+shank.vattigunta@gmail.com
+
+
+The following code attempts to style a paragraph using the <style> tag, but  
+fails to do so. Why?
+
+
+<head>
+<style>
+<p style="color:red;">I'm learning to code!</p>
+</style>
+</head>
+
+*
+
+
+The style attribute of the <p> element can be removed because the <style>  
+tag replaces it.
+
+
+The color attribute must be changed to color-style.
+
+
+You must use either inline styles or the <style> tag but not both.
+
+
+The contents of the <style> tag must be CSS code, not HTML code. The <p>  
+will not appear at all.
+
+
+What does the <style> HTML tag allow?
+
+*
+
+
+Writing one or more CSS rules in CSS syntax inside an HTML file.
+
+
+It links external CSS files to the HTML document.
+
+
+It is the only way to apply styles inside an HTML file.
+
+
+It automatically adds common styles to your webpage.
+
+
+What is the main difference between inline styles and the <style> tag?
+
+*
+
+
+Inline styles allow you to write CSS in a separate file, whereas the  
+<style> tag embeds CSS directly within HTML opening tags.
+
+
+There is no difference between inline styles and the <style> tag.
+
+
+The <style> tag allow you to write CSS in a separate file, whereas inline  
+styles embed CSS directly within HTML opening tags.
+
+
+Inline styles directly modify individual HTML elements using a style  
+attribute, whereas the <style> tag allows you to write CSS in a dedicated  
+section of the HTML file.
+
+
+What is the most specific selector in the code below?
+
+
+p {
+
+}
+
+#side-bar {
+
+}
+
+.main-content {
+
+}
+
+.main-content p {
+
+}
+
+*
+
+
+.main-content
+
+
+#side-bar
+
+
+.main-content p
+
+
+p
+
+
+Separating HTML and CSS into their own files helps accomplish which of the  
+following?
+
+*
+
+
+More specific CSS selectors.
+
+
+Separating HTML structure from CSS style makes the code in both languages  
+easier to read and maintain.
+
+
+Enhances webpage load time.
+
+
+Better-looking CSS styles.
+
+
+What is the purpose of the HTML <link> tag when it comes to styling a page?
+
+*
+
+
+To link a specific stylesheet file to an HTML file so that the styles get  
+applied on the page.
+
+
+To make sure that all links are styled correctly on the page.
+
+
+To make sure that your inline styles are applied correctly.
+
+
+To determine the specificity of CSS rules.
+
+
+The following HTML code attempts to use inline styling to change the color  
+of the paragraph text, but fails to do so. Why?
+
+
+<p color="red;">I am learning to code!</p>
+
+*
+
+
+The value of the color attribute must be changed to style: red;.
+
+
+The color red should be set to Red instead.
+
+
+A <style> tag must be used to add styles to HTML.
+
+
+The color attribute is invalid. It should be changed to style and then set  
+equal to color: red;: <p style="color:red;">.
+
+
+What will the color of the links be after applying the CSS below?
+
+
+body {
+color: green;
+}
+
+.main-content a {
+color: blue;
+}
+
+a {
+color: red !important;
+}
+
+*
+
+
+Black
+
+
+Blue
+
+
+Green
+
+
+Red
+
+
+What does the font-family property control?
+
+*
+
+
+It defines and creates a new font.
+
+
+The typeface used by the element.
+
+
+It allows you to group all the fonts you use in your stylesheet into a  
+family.
+
+
+Which of the following is a correct CSS declaration?
+
+*
+
+
+"color": green
+
+
+color: green;
+
+
+color = green;
+
+
+font green
+
+
+The font-weight property will adjust which of the following?
+
+*
+
+
+The spacing between letters.
+
+
+How transparent text appears.
+
+
+How thin or thick text appears.
+
+
+How small or large text appears.
+
+
+Which of the following will set an element's background to an image?
+
+*
+
+
+background-image: url("image.jpg");
+
+
+background-image: url = "image.jpg";
+
+
+background-image: "image.jpg";
+
+
+background.image = url("image.jpg");
+
+
+The following code attempts to style a paragraph using the <style> tag, but  
+fails to do so. Why?
+
+
+<head>
+<style>
+<p style="color:red;">I'm learning to code!</p>
+</style>
+</head>
+
+*
+
+
+The style attribute of the <p> element can be removed because the <style>  
+tag replaces it.
+
+
+The color attribute must be changed to color-style.
+
+
+You must use either inline styles or the <style> tag but not both.
+
+
+The contents of the <style> tag must be CSS code, not HTML code. The <p>  
+will not appear at all.
+
+
+What does the <style> HTML tag allow?
+
+*
+
+
+Writing one or more CSS rules in CSS syntax inside an HTML file.
+
+
+It links external CSS files to the HTML document.
+
+
+It is the only way to apply styles inside an HTML file.
+
+
+It automatically adds common styles to your webpage.
+
+
+What is the main difference between inline styles and the <style> tag?
+
+*
+
+
+Inline styles allow you to write CSS in a separate file, whereas the  
+<style> tag embeds CSS directly within HTML opening tags.
+
+
+There is no difference between inline styles and the <style> tag.
+
+
+The <style> tag allow you to write CSS in a separate file, whereas inline  
+styles embed CSS directly within HTML opening tags.
+
+
+Inline styles directly modify individual HTML elements using a style  
+attribute, whereas the <style> tag allows you to write CSS in a dedicated  
+section of the HTML file.
+
+
+What is the most specific selector in the code below?
+
+
+p {
+
+}
+
+#side-bar {
+
+}
+
+.main-content {
+
+}
+
+.main-content p {
+
+}
+
+*
+
+
+.main-content
+
+
+#side-bar
+
+
+.main-content p
+
+
+p
+
+
+Separating HTML and CSS into their own files helps accomplish which of the  
+following?
+
+*
+
+
+More specific CSS selectors.
+
+
+Separating HTML structure from CSS style makes the code in both languages  
+easier to read and maintain.
+
+
+Enhances webpage load time.
+
+
+Better-looking CSS styles.
+
+
+What is the purpose of the HTML <link> tag when it comes to styling a page?
+
+*
+
+
+To link a specific stylesheet file to an HTML file so that the styles get  
+applied on the page.
+
+
+To make sure that all links are styled correctly on the page.
+
+
+To make sure that your inline styles are applied correctly.
+
+
+To determine the specificity of CSS rules.
+
+
+The following HTML code attempts to use inline styling to change the color  
+of the paragraph text, but fails to do so. Why?
+
+
+<p color="red;">I am learning to code!</p>
+
+*
+
+
+The value of the color attribute must be changed to style: red;.
+
+
+The color red should be set to Red instead.
+
+
+A <style> tag must be used to add styles to HTML.
+
+
+The color attribute is invalid. It should be changed to style and then set  
+equal to color: red;: <p style="color:red;">.
+
+
+What will the color of the links be after applying the CSS below?
+
+
+body {
+color: green;
+}
+
+.main-content a {
+color: blue;
+}
+
+a {
+color: red !important;
+}
+
+*
+
+
+Black
+
+
+Blue
+
+
+Green
+
+
+Red
+
+
+What does the font-family property control?
+
+*
+
+
+It defines and creates a new font.
+
+
+The typeface used by the element.
+
+
+It allows you to group all the fonts you use in your stylesheet into a  
+family.
+
+
+Which of the following is a correct CSS declaration?
+
+*
+
+
+"color": green
+
+
+color: green;
+
+
+color = green;
+
+
+font green
+
+
+The font-weight property will adjust which of the following?
+
+*
+
+
+The spacing between letters.
+
+
+How transparent text appears.
+
+
+How thin or thick text appears.
+
+
+How small or large text appears.
+
+
+Which of the following will set an element's background to an image?
+
+*
+
+
+background-image: url("image.jpg");
+
+
+background-image: url = "image.jpg";
+
+
+background-image: "image.jpg";
+
+
+background.image = url("image.jpg");
+
+
+Create your own Google Form
+
+Report Abuse
+
+
+
+--000000000000dd3ee805f82bcb95
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><style nonce=3D"5dr2JFRJaj5jKv2gQ2j__A">@import url(https://fon=
+ts.googleapis.com/css?family=3DGoogle+Sans:400,500|Roboto:300,400,400i,500,=
+700&subset=3Dlatin,vietnamese,latin-ext,cyrillic,greek,cyrillic-ext,greek-e=
+xt);</style><style nonce=3D"5dr2JFRJaj5jKv2gQ2j__A">[class=3D"x_body-conten=
+t-wrapper"] * {white-space: normal !important;}</style></head><body dir=3D"=
+ltr" style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif=
+;font-size: 14px; font-weight: 400; line-height: 20px;text-align: start; wo=
+rd-wrap: break-word; margin: 0; padding: 0; height: 100%; width: 100%;"><ta=
+ble border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"background-co=
+lor:rgb(103,58,183);" width=3D"100%" role=3D"presentation"><tbody><tr heigh=
+t=3D"64px"><td style=3D"padding: 0 24px;"><img alt=3D"Google Forms" height=
+=3D"26px" style=3D"display: inline-block; margin: 0; vertical-align: middle=
+;" width=3D"143px" src=3D"https://www.gstatic.com/docs/forms/google_forms_l=
+ogo_lockup_white_2x.png"></td></tr></tbody></table><div class=3D"body-conte=
+nt-wrapper" style=3D"padding: 12px; background-color: rgb(237,231,246);"><d=
+iv style=3D"margin: 0 auto; max-width: 640px; min-width: 154px;"><div style=
+=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color: #fff; b=
+order-radius: 8px; margin-bottom: 12px;padding: 20px;"><h1 style=3D"color: =
+#202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 20px; fon=
+t-weight: 400; line-height: 28px;margin: 0 0 12px;">Thanks for filling out =
+<a href=3D"https://docs.google.com/forms/d/e/1FAIpQLSfO4wwjyolBtWRu5_piR5fb=
+MyDdxxnnj3QbIoef0WwPW8nx0Q/viewform?usp=3Dmail_form_link" target=3D"_blank"=
+ style=3D"white-space: pre-wrap;">CSS Briefing</a></h1>Here's what was rece=
+ived.<div style=3D"margin-top: 16px;"><div style=3D"margin-top: 24px"><a hr=
+ef=3D"https://docs.google.com/forms/u/0/d/e/1FAIpQLSfO4wwjyolBtWRu5_piR5fbM=
+yDdxxnnj3QbIoef0WwPW8nx0Q/viewscore?viewscore=3DAE0zAgAPUQpf_to_uA-l3dKfePL=
+cHKvaqUXKicMAUDr2gDGaMCmbpaeJV3NMqrqDQBSVcf4" target=3D"_blank" style=3D"bo=
+rder-radius: 4px;font-family: &#39;Google Sans&#39;,Roboto,Helvetica,Arial,=
+sans-serif;font-size: 14px; font-weight: 500; padding: 8px 24px; text-align=
+: center; text-decoration: none;background-color: rgb(103,58,183); color: #=
+fff;">View score</a></div><div itemprop=3D"action" itemscope itemtype=3D"ht=
+tp://schema.org/ViewAction"><meta itemprop=3D"url" content=3D"https://docs.=
+google.com/forms/u/0/d/e/1FAIpQLSfO4wwjyolBtWRu5_piR5fbMyDdxxnnj3QbIoef0WwP=
+W8nx0Q/viewscore?viewscore=3DAE0zAgAPUQpf_to_uA-l3dKfePLcHKvaqUXKicMAUDr2gD=
+GaMCmbpaeJV3NMqrqDQBSVcf4"><meta itemprop=3D"name" content=3D"View your sco=
+re"></div></div></div><div style=3D"border-bottom: 1px solid #dadce0; borde=
+r-left: 1px solid #dadce0; border-right: 1px solid #dadce0; border-top: 8px=
+ solid rgb(103,58,183); padding: 20px;background-color: #fff; border-radius=
+: 8px; margin-bottom: 12px;"><h1 dir=3D"ltr" style=3D"font-family: Roboto,H=
+elvetica,Arial,sans-serif;font-size: 32px; font-weight: 400; line-height: 4=
+2px;white-space: pre-wrap;margin: 0 0 12px;">CSS Briefing</h1><div style=3D=
+"white-space: pre-wrap;margin-bottom: 12px;">Lets explore CSS</div></div><d=
+iv style=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color:=
+ #fff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div s=
+tyle=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-fam=
+ily: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; l=
+ine-height: 24px;white-space: pre-wrap;margin: 0 0 16px;">Email<span style=
+=3D"color: #d93025;" aria-label=3D"Required question"> *</span></h2></div><=
+div style=3D"padding: 0 12px;"><div style=3D"width: 100%;"><div dir=3D"auto=
+" style=3D"white-space: pre-wrap;border-bottom: 1px dotted rgba(0,0,0,0.38)=
+;margin: 12px 0 8px; min-height: 20px;display: inline-block; max-width: 100=
+%; min-width: 50%;">shank.vattigunta@gmail.com</div></div></div></div><div =
+style=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color: #f=
+ff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div styl=
+e=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-family=
+: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; line=
+-height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><div><div><p>The fol=
+lowing code attempts to style a paragraph using the=C2=A0<span style=3D"fon=
+t-weight:700">&lt;style&gt;</span>=C2=A0tag, but fails to do so. Why?</p></=
+div></div><div><div style=3D"white-space:pre-wrap">&lt;head&gt;<br>=C2=A0=
+=C2=A0&lt;style&gt;<br>=C2=A0=C2=A0=C2=A0=C2=A0&lt;p style=3D&quot;color:re=
+d;&quot;&gt;I&#39;m learning to code!&lt;/p&gt;<br>=C2=A0=C2=A0&lt;/style&g=
+t;<br>&lt;/head&gt;</div></div><span style=3D"color: #d93025;" aria-label=
+=3D"Required question"> *</span></h2></div><div style=3D"padding: 0 12px;">=
+<div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family=
+: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line=
+-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td=
+><div role=3D"radio" aria-checked=3D"false" aria-label=3D"The style attribu=
+te of the &lt;p&gt; element can be removed because the &lt;style&gt; tag re=
+places it." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; =
+border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td styl=
+e=3D"word-break: break-word;">The style attribute of the &lt;p&gt; element =
+can be removed because the &lt;style&gt; tag replaces it.</td></tr></table>=
+</div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-=
+family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400=
+; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><=
+tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"The color a=
+ttribute must be changed to color-style." style=3D"border: solid 2px #9aa0a=
+6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"=
+min-width: 8px;"></td><td style=3D"word-break: break-word;">The color attri=
+bute must be changed to color-style.</td></tr></table></div><div style=3D"m=
+argin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvet=
+ica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;c=
+olor: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"r=
+adio" aria-checked=3D"false" aria-label=3D"You must use either inline style=
+s or the &lt;style&gt; tag but not both." style=3D"border: solid 2px #9aa0a=
+6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"=
+min-width: 8px;"></td><td style=3D"word-break: break-word;">You must use ei=
+ther inline styles or the &lt;style&gt; tag but not both.</td></tr></table>=
+</div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-=
+family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400=
+; line-height: 20px;margin-top: 8px; table-layout: fixed;"><tr><td><div rol=
+e=3D"radio" aria-checked=3D"true" aria-label=3D"The contents of the &lt;sty=
+le&gt; tag must be CSS code, not HTML code. The &lt;p&gt; will not appear a=
+t all." style=3D"border: solid 2px #5f6368; height: 16px; width: 16px; bord=
+er-radius: 50%;"><div style=3D"background-color: #5f6368; border: solid 5px=
+ #5f6368; border-radius: 50%; margin: 3px; height: 0; width: 0;"></div></di=
+v></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-wo=
+rd;">The contents of the &lt;style&gt; tag must be CSS code, not HTML code.=
+ The &lt;p&gt; will not appear at all.</td></tr></table></div></div></div><=
+div style=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color=
+: #fff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div =
+style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-fa=
+mily: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; =
+line-height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><p>What does the=
+=C2=A0<span style=3D"font-weight:700">&lt;style&gt;</span>=C2=A0HTML tag al=
+low?<br></p><span style=3D"color: #d93025;" aria-label=3D"Required question=
+"> *</span></h2></div><div style=3D"padding: 0 12px;"><div style=3D"margin-=
+top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Ar=
+ial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;margin-=
+top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D=
+"true" aria-label=3D"Writing one or more CSS rules in CSS syntax inside an =
+HTML file." style=3D"border: solid 2px #5f6368; height: 16px; width: 16px; =
+border-radius: 50%;"><div style=3D"background-color: #5f6368; border: solid=
+ 5px #5f6368; border-radius: 50%; margin: 3px; height: 0; width: 0;"></div>=
+</div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: brea=
+k-word;">Writing one or more CSS rules in CSS syntax inside an HTML file.</=
+td></tr></table></div><div style=3D"margin-top: 16px;"><table style=3D"colo=
+r: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; =
+font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-l=
+ayout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-labe=
+l=3D"It links external CSS files to the HTML document." style=3D"border: so=
+lid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td=
+><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">I=
+t links external CSS files to the HTML document.</td></tr></table></div><di=
+v style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: R=
+oboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-he=
+ight: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><d=
+iv role=3D"radio" aria-checked=3D"false" aria-label=3D"It is the only way t=
+o apply styles inside an HTML file." style=3D"border: solid 2px #9aa0a6; he=
+ight: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-w=
+idth: 8px;"></td><td style=3D"word-break: break-word;">It is the only way t=
+o apply styles inside an HTML file.</td></tr></table></div><div style=3D"ma=
+rgin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helveti=
+ca,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;co=
+lor: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"ra=
+dio" aria-checked=3D"false" aria-label=3D"It automatically adds common styl=
+es to your webpage." style=3D"border: solid 2px #9aa0a6; height: 16px; widt=
+h: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td=
+><td style=3D"word-break: break-word;">It automatically adds common styles =
+to your webpage.</td></tr></table></div></div></div><div style=3D"border: 1=
+px solid #dadce0; padding: 20px 12px;background-color: #fff; border-radius:=
+ 8px; margin-bottom: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12=
+px;"><h2 dir=3D"auto" style=3D"color: #202124;font-family: Roboto,Helvetica=
+,Arial,sans-serif;font-size: 16px; font-weight: 400; line-height: 24px;whit=
+e-space: pre-wrap;margin: 0 0 16px;"><p>What is the main difference between=
+ inline styles and the=C2=A0<span style=3D"font-weight:700">&lt;style&gt;</=
+span>=C2=A0tag?<br></p><span style=3D"color: #d93025;" aria-label=3D"Requir=
+ed question"> *</span></h2></div><div style=3D"padding: 0 12px;"><div style=
+=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,H=
+elvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 2=
+0px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=
+=3D"radio" aria-checked=3D"false" aria-label=3D"Inline styles allow you to =
+write CSS in a separate file, whereas the &lt;style&gt; tag embeds CSS dire=
+ctly within HTML opening tags." style=3D"border: solid 2px #9aa0a6; height:=
+ 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-width:=
+ 8px;"></td><td style=3D"word-break: break-word;">Inline styles allow you t=
+o write CSS in a separate file, whereas the &lt;style&gt; tag embeds CSS di=
+rectly within HTML opening tags.</td></tr></table></div><div style=3D"margi=
+n-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,=
+Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;color=
+: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio=
+" aria-checked=3D"false" aria-label=3D"There is no difference between inlin=
+e styles and the &lt;style&gt; tag." style=3D"border: solid 2px #9aa0a6; he=
+ight: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-w=
+idth: 8px;"></td><td style=3D"word-break: break-word;">There is no differen=
+ce between inline styles and the &lt;style&gt; tag.</td></tr></table></div>=
+<div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family=
+: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line=
+-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td=
+><div role=3D"radio" aria-checked=3D"false" aria-label=3D"The &lt;style&gt;=
+ tag allow you to write CSS in a separate file, whereas inline styles embed=
+ CSS directly within HTML opening tags." style=3D"border: solid 2px #9aa0a6=
+; height: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"m=
+in-width: 8px;"></td><td style=3D"word-break: break-word;">The &lt;style&gt=
+; tag allow you to write CSS in a separate file, whereas inline styles embe=
+d CSS directly within HTML opening tags.</td></tr></table></div><div style=
+=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,H=
+elvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 2=
+0px;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria=
+-checked=3D"true" aria-label=3D"Inline styles directly modify individual HT=
+ML elements using a style attribute, whereas the &lt;style&gt; tag allows y=
+ou to write CSS in a dedicated section of the HTML file." style=3D"border: =
+solid 2px #5f6368; height: 16px; width: 16px; border-radius: 50%;"><div sty=
+le=3D"background-color: #5f6368; border: solid 5px #5f6368; border-radius: =
+50%; margin: 3px; height: 0; width: 0;"></div></div></td><td style=3D"min-w=
+idth: 8px;"></td><td style=3D"word-break: break-word;">Inline styles direct=
+ly modify individual HTML elements using a style attribute, whereas the &lt=
+;style&gt; tag allows you to write CSS in a dedicated section of the HTML f=
+ile.</td></tr></table></div></div></div><div style=3D"border: 1px solid #da=
+dce0; padding: 20px 12px;background-color: #fff; border-radius: 8px; margin=
+-bottom: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=
+=3D"auto" style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-=
+serif;font-size: 16px; font-weight: 400; line-height: 24px;white-space: pre=
+-wrap;margin: 0 0 16px;"><div><div><p>What is the most specific selector in=
+ the code below?</p></div></div><div><div style=3D"white-space:pre-wrap">p =
+{<br>=C2=A0=C2=A0<br>}<br> <br>#side-bar {<br>=C2=A0=C2=A0<br>}<br> <br>.ma=
+in-content {<br> <br>}<br> <br>.main-content p {<br> <br>}</div></div><span=
+ style=3D"color: #d93025;" aria-label=3D"Required question"> *</span></h2><=
+/div><div style=3D"padding: 0 12px;"><div style=3D"margin-top: 16px;"><tabl=
+e style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;fo=
+nt-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-to=
+p: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"f=
+alse" aria-label=3D".main-content" style=3D"border: solid 2px #9aa0a6; heig=
+ht: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-wid=
+th: 8px;"></td><td style=3D"word-break: break-word;">.main-content</td></tr=
+></table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #202=
+124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-we=
+ight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: =
+fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"#s=
+ide-bar" style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; bor=
+der-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=
+=3D"word-break: break-word;">#side-bar</td></tr></table></div><div style=3D=
+"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helv=
+etica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px=
+;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D=
+"radio" aria-checked=3D"false" aria-label=3D".main-content p" style=3D"bord=
+er: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></di=
+v></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-wo=
+rd;">.main-content p</td></tr></table></div><div style=3D"margin-top: 16px;=
+"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-s=
+erif;font-size: 14px; font-weight: 400; line-height: 20px;margin-top: 8px; =
+table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"true" ari=
+a-label=3D"p" style=3D"border: solid 2px #5f6368; height: 16px; width: 16px=
+; border-radius: 50%;"><div style=3D"background-color: #5f6368; border: sol=
+id 5px #5f6368; border-radius: 50%; margin: 3px; height: 0; width: 0;"></di=
+v></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: br=
+eak-word;">p</td></tr></table></div></div></div><div style=3D"border: 1px s=
+olid #dadce0; padding: 20px 12px;background-color: #fff; border-radius: 8px=
+; margin-bottom: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"=
+><h2 dir=3D"auto" style=3D"color: #202124;font-family: Roboto,Helvetica,Ari=
+al,sans-serif;font-size: 16px; font-weight: 400; line-height: 24px;white-sp=
+ace: pre-wrap;margin: 0 0 16px;"><p>Separating HTML and CSS into their own =
+files helps accomplish which of the following?<br></p><span style=3D"color:=
+ #d93025;" aria-label=3D"Required question"> *</span></h2></div><div style=
+=3D"padding: 0 12px;"><div style=3D"margin-top: 16px;"><table style=3D"colo=
+r: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; =
+font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-l=
+ayout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-labe=
+l=3D"More specific CSS selectors." style=3D"border: solid 2px #9aa0a6; heig=
+ht: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-wid=
+th: 8px;"></td><td style=3D"word-break: break-word;">More specific CSS sele=
+ctors.</td></tr></table></div><div style=3D"margin-top: 16px;"><table style=
+=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size=
+: 14px; font-weight: 400; line-height: 20px;margin-top: 8px; table-layout: =
+fixed;"><tr><td><div role=3D"radio" aria-checked=3D"true" aria-label=3D"Sep=
+arating HTML structure from CSS style makes the code in both languages easi=
+er to read and maintain." style=3D"border: solid 2px #5f6368; height: 16px;=
+ width: 16px; border-radius: 50%;"><div style=3D"background-color: #5f6368;=
+ border: solid 5px #5f6368; border-radius: 50%; margin: 3px; height: 0; wid=
+th: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><td style=3D"wo=
+rd-break: break-word;">Separating HTML structure from CSS style makes the c=
+ode in both languages easier to read and maintain.</td></tr></table></div><=
+div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family:=
+ Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-=
+height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td>=
+<div role=3D"radio" aria-checked=3D"false" aria-label=3D"Enhances webpage l=
+oad time." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; b=
+order-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=
+=3D"word-break: break-word;">Enhances webpage load time.</td></tr></table><=
+/div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-f=
+amily: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400;=
+ line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><t=
+r><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"Better-looki=
+ng CSS styles." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16=
+px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td =
+style=3D"word-break: break-word;">Better-looking CSS styles.</td></tr></tab=
+le></div></div></div><div style=3D"border: 1px solid #dadce0; padding: 20px=
+ 12px;background-color: #fff; border-radius: 8px; margin-bottom: 12px;margi=
+n-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"=
+color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 16=
+px; font-weight: 400; line-height: 24px;white-space: pre-wrap;margin: 0 0 1=
+6px;"><p>What is the purpose of the HTML=C2=A0<span style=3D"font-weight:70=
+0">&lt;link&gt;</span>=C2=A0tag when it comes to styling a page?<br></p><sp=
+an style=3D"color: #d93025;" aria-label=3D"Required question"> *</span></h2=
+></div><div style=3D"padding: 0 12px;"><div style=3D"margin-top: 16px;"><ta=
+ble style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;=
+font-size: 14px; font-weight: 400; line-height: 20px;margin-top: 8px; table=
+-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"true" aria-lab=
+el=3D"To link a specific stylesheet file to an HTML file so that the styles=
+ get applied on the page." style=3D"border: solid 2px #5f6368; height: 16px=
+; width: 16px; border-radius: 50%;"><div style=3D"background-color: #5f6368=
+; border: solid 5px #5f6368; border-radius: 50%; margin: 3px; height: 0; wi=
+dth: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><td style=3D"w=
+ord-break: break-word;">To link a specific stylesheet file to an HTML file =
+so that the styles get applied on the page.</td></tr></table></div><div sty=
+le=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto=
+,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height:=
+ 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div ro=
+le=3D"radio" aria-checked=3D"false" aria-label=3D"To make sure that all lin=
+ks are styled correctly on the page." style=3D"border: solid 2px #9aa0a6; h=
+eight: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-=
+width: 8px;"></td><td style=3D"word-break: break-word;">To make sure that a=
+ll links are styled correctly on the page.</td></tr></table></div><div styl=
+e=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,=
+Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: =
+20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div rol=
+e=3D"radio" aria-checked=3D"false" aria-label=3D"To make sure that your inl=
+ine styles are applied correctly." style=3D"border: solid 2px #9aa0a6; heig=
+ht: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-wid=
+th: 8px;"></td><td style=3D"word-break: break-word;">To make sure that your=
+ inline styles are applied correctly.</td></tr></table></div><div style=3D"=
+margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helve=
+tica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;=
+color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"=
+radio" aria-checked=3D"false" aria-label=3D"To determine the specificity of=
+ CSS rules." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px;=
+ border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td sty=
+le=3D"word-break: break-word;">To determine the specificity of CSS rules.</=
+td></tr></table></div></div></div><div style=3D"border: 1px solid #dadce0; =
+padding: 20px 12px;background-color: #fff; border-radius: 8px; margin-botto=
+m: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"au=
+to" style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;=
+font-size: 16px; font-weight: 400; line-height: 24px;white-space: pre-wrap;=
+margin: 0 0 16px;"><div><div><p>The following HTML code attempts to use inl=
+ine styling to change the color of the paragraph text, but fails to do so. =
+Why?</p></div></div><div><div style=3D"white-space:pre-wrap">&lt;p color=3D=
+&quot;red;&quot;&gt;I am learning to code!&lt;/p&gt;</div></div><span style=
+=3D"color: #d93025;" aria-label=3D"Required question"> *</span></h2></div><=
+div style=3D"padding: 0 12px;"><div style=3D"margin-top: 16px;"><table styl=
+e=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-siz=
+e: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px=
+; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" =
+aria-label=3D"The value of the color attribute must be changed to style: re=
+d;." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-=
+radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"wo=
+rd-break: break-word;">The value of the color attribute must be changed to =
+style: red;.</td></tr></table></div><div style=3D"margin-top: 16px;"><table=
+ style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;fon=
+t-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top=
+: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"fa=
+lse" aria-label=3D"The color red should be set to Red instead." style=3D"bo=
+rder: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></=
+div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-=
+word;">The color red should be set to Red instead.</td></tr></table></div><=
+div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family:=
+ Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-=
+height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td>=
+<div role=3D"radio" aria-checked=3D"false" aria-label=3D"A &lt;style&gt; ta=
+g must be used to add styles to HTML." style=3D"border: solid 2px #9aa0a6; =
+height: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min=
+-width: 8px;"></td><td style=3D"word-break: break-word;">A &lt;style&gt; ta=
+g must be used to add styles to HTML.</td></tr></table></div><div style=3D"=
+margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helve=
+tica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;=
+margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-che=
+cked=3D"true" aria-label=3D"The color attribute is invalid. It should be ch=
+anged to style and then set equal to color: red;: &lt;p style=3D&quot;color=
+:red;&quot;&gt;." style=3D"border: solid 2px #5f6368; height: 16px; width: =
+16px; border-radius: 50%;"><div style=3D"background-color: #5f6368; border:=
+ solid 5px #5f6368; border-radius: 50%; margin: 3px; height: 0; width: 0;">=
+</div></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break=
+: break-word;">The color attribute is invalid. It should be changed to styl=
+e and then set equal to color: red;: &lt;p style=3D&quot;color:red;&quot;&g=
+t;.</td></tr></table></div></div></div><div style=3D"border: 1px solid #dad=
+ce0; padding: 20px 12px;background-color: #fff; border-radius: 8px; margin-=
+bottom: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=
+=3D"auto" style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-=
+serif;font-size: 16px; font-weight: 400; line-height: 24px;white-space: pre=
+-wrap;margin: 0 0 16px;"><div><div><p>What will the color of the links be a=
+fter applying the CSS below?</p></div></div><div><div style=3D"white-space:=
+pre-wrap">body {<br> color: green;<br>}<br> <br>.main-content a {<br>=C2=A0=
+=C2=A0color: blue;<br>}<br> <br>a {<br> color: red !important;<br>}</div></=
+div><span style=3D"color: #d93025;" aria-label=3D"Required question"> *</sp=
+an></h2></div><div style=3D"padding: 0 12px;"><div style=3D"margin-top: 16p=
+x;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans=
+-serif;font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;=
+margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-che=
+cked=3D"false" aria-label=3D"Black" style=3D"border: solid 2px #9aa0a6; hei=
+ght: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-wi=
+dth: 8px;"></td><td style=3D"word-break: break-word;">Black</td></tr></tabl=
+e></div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;fon=
+t-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 4=
+00; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"=
+><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"Blue" sty=
+le=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: =
+50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break=
+: break-word;">Blue</td></tr></table></div><div style=3D"margin-top: 16px;"=
+><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-se=
+rif;font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;mar=
+gin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checke=
+d=3D"false" aria-label=3D"Green" style=3D"border: solid 2px #9aa0a6; height=
+: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-width=
+: 8px;"></td><td style=3D"word-break: break-word;">Green</td></tr></table><=
+/div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-f=
+amily: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400;=
+ line-height: 20px;margin-top: 8px; table-layout: fixed;"><tr><td><div role=
+=3D"radio" aria-checked=3D"true" aria-label=3D"Red" style=3D"border: solid =
+2px #5f6368; height: 16px; width: 16px; border-radius: 50%;"><div style=3D"=
+background-color: #5f6368; border: solid 5px #5f6368; border-radius: 50%; m=
+argin: 3px; height: 0; width: 0;"></div></div></td><td style=3D"min-width: =
+8px;"></td><td style=3D"word-break: break-word;">Red</td></tr></table></div=
+></div></div><div style=3D"border: 1px solid #dadce0; padding: 20px 12px;ba=
+ckground-color: #fff; border-radius: 8px; margin-bottom: 12px;margin-bottom=
+: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #=
+202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font=
+-weight: 400; line-height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><p=
+>What does the=C2=A0<span style=3D"font-weight:700">font-family</span>=C2=
+=A0property control?<br></p><span style=3D"color: #d93025;" aria-label=3D"R=
+equired question"> *</span></h2></div><div style=3D"padding: 0 12px;"><div =
+style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Rob=
+oto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-heig=
+ht: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div=
+ role=3D"radio" aria-checked=3D"false" aria-label=3D"It defines and creates=
+ a new font." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px=
+; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td st=
+yle=3D"word-break: break-word;">It defines and creates a new font.</td></tr=
+></table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #202=
+124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-we=
+ight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: =
+fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"Th=
+e typeface used by the element." style=3D"border: solid 2px #9aa0a6; height=
+: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-width=
+: 8px;"></td><td style=3D"word-break: break-word;">The typeface used by the=
+ element.</td></tr></table></div><div style=3D"margin-top: 16px;"><table st=
+yle=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-s=
+ize: 14px; font-weight: 400; line-height: 20px;margin-top: 8px; table-layou=
+t: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"true" aria-label=3D"=
+It allows you to group all the fonts you use in your stylesheet into a fami=
+ly." style=3D"border: solid 2px #5f6368; height: 16px; width: 16px; border-=
+radius: 50%;"><div style=3D"background-color: #5f6368; border: solid 5px #5=
+f6368; border-radius: 50%; margin: 3px; height: 0; width: 0;"></div></div><=
+/td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;=
+">It allows you to group all the fonts you use in your stylesheet into a fa=
+mily.</td></tr></table></div></div></div><div style=3D"border: 1px solid #d=
+adce0; padding: 20px 12px;background-color: #fff; border-radius: 8px; margi=
+n-bottom: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 di=
+r=3D"auto" style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans=
+-serif;font-size: 16px; font-weight: 400; line-height: 24px;white-space: pr=
+e-wrap;margin: 0 0 16px;"><p>Which of the following is a correct CSS declar=
+ation?<br></p><span style=3D"color: #d93025;" aria-label=3D"Required questi=
+on"> *</span></h2></div><div style=3D"padding: 0 12px;"><div style=3D"margi=
+n-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,=
+Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;color=
+: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio=
+" aria-checked=3D"false" aria-label=3D"&quot;color&quot;: green" style=3D"b=
+order: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"><=
+/div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break=
+-word;">&quot;color&quot;: green</td></tr></table></div><div style=3D"margi=
+n-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,=
+Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;margi=
+n-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=
+=3D"true" aria-label=3D"color: green;" style=3D"border: solid 2px #5f6368; =
+height: 16px; width: 16px; border-radius: 50%;"><div style=3D"background-co=
+lor: #5f6368; border: solid 5px #5f6368; border-radius: 50%; margin: 3px; h=
+eight: 0; width: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><t=
+d style=3D"word-break: break-word;">color: green;</td></tr></table></div><d=
+iv style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: =
+Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-h=
+eight: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><=
+div role=3D"radio" aria-checked=3D"false" aria-label=3D"color =3D green;" s=
+tyle=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius=
+: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-bre=
+ak: break-word;">color =3D green;</td></tr></table></div><div style=3D"marg=
+in-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica=
+,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;colo=
+r: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radi=
+o" aria-checked=3D"false" aria-label=3D"font green" style=3D"border: solid =
+2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td=
+ style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">font =
+green</td></tr></table></div></div></div><div style=3D"border: 1px solid #d=
+adce0; padding: 20px 12px;background-color: #fff; border-radius: 8px; margi=
+n-bottom: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 di=
+r=3D"auto" style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans=
+-serif;font-size: 16px; font-weight: 400; line-height: 24px;white-space: pr=
+e-wrap;margin: 0 0 16px;"><p>The=C2=A0<span style=3D"font-weight:700">font-=
+weight</span>=C2=A0property will adjust which of the following?<br></p><spa=
+n style=3D"color: #d93025;" aria-label=3D"Required question"> *</span></h2>=
+</div><div style=3D"padding: 0 12px;"><div style=3D"margin-top: 16px;"><tab=
+le style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;f=
+ont-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-t=
+op: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"=
+false" aria-label=3D"The spacing between letters." style=3D"border: solid 2=
+px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td =
+style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">The sp=
+acing between letters.</td></tr></table></div><div style=3D"margin-top: 16p=
+x;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans=
+-serif;font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;=
+margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-che=
+cked=3D"false" aria-label=3D"How transparent text appears." style=3D"border=
+: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div>=
+</td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word=
+;">How transparent text appears.</td></tr></table></div><div style=3D"margi=
+n-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,=
+Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;margi=
+n-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=
+=3D"true" aria-label=3D"How thin or thick text appears." style=3D"border: s=
+olid 2px #5f6368; height: 16px; width: 16px; border-radius: 50%;"><div styl=
+e=3D"background-color: #5f6368; border: solid 5px #5f6368; border-radius: 5=
+0%; margin: 3px; height: 0; width: 0;"></div></div></td><td style=3D"min-wi=
+dth: 8px;"></td><td style=3D"word-break: break-word;">How thin or thick tex=
+t appears.</td></tr></table></div><div style=3D"margin-top: 16px;"><table s=
+tyle=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-=
+size: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: =
+8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"fals=
+e" aria-label=3D"How small or large text appears." style=3D"border: solid 2=
+px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td =
+style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">How sm=
+all or large text appears.</td></tr></table></div></div></div><div style=3D=
+"border: 1px solid #dadce0; padding: 20px 12px;background-color: #fff; bord=
+er-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div style=3D"pad=
+ding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-family: Roboto=
+,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; line-height:=
+ 24px;white-space: pre-wrap;margin: 0 0 16px;"><p>Which of the following wi=
+ll set an element=E2=80=99s background to an image?<br></p><span style=3D"c=
+olor: #d93025;" aria-label=3D"Required question"> *</span></h2></div><div s=
+tyle=3D"padding: 0 12px;"><div style=3D"margin-top: 16px;"><table style=3D"=
+color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14=
+px; font-weight: 400; line-height: 20px;margin-top: 8px; table-layout: fixe=
+d;"><tr><td><div role=3D"radio" aria-checked=3D"true" aria-label=3D"backgro=
+und-image: url(&quot;image.jpg&quot;);" style=3D"border: solid 2px #5f6368;=
+ height: 16px; width: 16px; border-radius: 50%;"><div style=3D"background-c=
+olor: #5f6368; border: solid 5px #5f6368; border-radius: 50%; margin: 3px; =
+height: 0; width: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><=
+td style=3D"word-break: break-word;">background-image: url(&quot;image.jpg&=
+quot;);</td></tr></table></div><div style=3D"margin-top: 16px;"><table styl=
+e=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-siz=
+e: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px=
+; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" =
+aria-label=3D"background-image: url =3D &quot;image.jpg&quot;;" style=3D"bo=
+rder: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></=
+div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-=
+word;">background-image: url =3D &quot;image.jpg&quot;;</td></tr></table></=
+div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-fa=
+mily: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; =
+line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr=
+><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"background-im=
+age: &quot;image.jpg&quot;;" style=3D"border: solid 2px #9aa0a6; height: 16=
+px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8p=
+x;"></td><td style=3D"word-break: break-word;">background-image: &quot;imag=
+e.jpg&quot;;</td></tr></table></div><div style=3D"margin-top: 16px;"><table=
+ style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;fon=
+t-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top=
+: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"fa=
+lse" aria-label=3D"background.image =3D url(&quot;image.jpg&quot;);" style=
+=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50=
+%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: =
+break-word;">background.image =3D url(&quot;image.jpg&quot;);</td></tr></ta=
+ble></div></div></div><div style=3D"border: 1px solid #dadce0; padding: 20p=
+x 12px;background-color: #fff; border-radius: 8px; margin-bottom: 12px;marg=
+in-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D=
+"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 1=
+6px; font-weight: 400; line-height: 24px;white-space: pre-wrap;margin: 0 0 =
+16px;"><div><div><p>The following code attempts to style a paragraph using =
+the=C2=A0<span style=3D"font-weight:700">&lt;style&gt;</span>=C2=A0tag, but=
+ fails to do so. Why?</p></div></div><div><div style=3D"white-space:pre-wra=
+p">&lt;head&gt;<br>=C2=A0=C2=A0&lt;style&gt;<br>=C2=A0=C2=A0=C2=A0=C2=A0&lt=
+;p style=3D&quot;color:red;&quot;&gt;I&#39;m learning to code!&lt;/p&gt;<br=
+>=C2=A0=C2=A0&lt;/style&gt;<br>&lt;/head&gt;</div></div><span style=3D"colo=
+r: #d93025;" aria-label=3D"Required question"> *</span></h2></div><div styl=
+e=3D"padding: 0 12px;"><div style=3D"margin-top: 16px;"><table style=3D"col=
+or: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px;=
+ font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-=
+layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-lab=
+el=3D"The style attribute of the &lt;p&gt; element can be removed because t=
+he &lt;style&gt; tag replaces it." style=3D"border: solid 2px #9aa0a6; heig=
+ht: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-wid=
+th: 8px;"></td><td style=3D"word-break: break-word;">The style attribute of=
+ the &lt;p&gt; element can be removed because the &lt;style&gt; tag replace=
+s it.</td></tr></table></div><div style=3D"margin-top: 16px;"><table style=
+=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size=
+: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px;=
+ table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" a=
+ria-label=3D"The color attribute must be changed to color-style." style=3D"=
+border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;">=
+</div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: brea=
+k-word;">The color attribute must be changed to color-style.</td></tr></tab=
+le></div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;fo=
+nt-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: =
+400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;=
+"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"You must=
+ use either inline styles or the &lt;style&gt; tag but not both." style=3D"=
+border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;">=
+</div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: brea=
+k-word;">You must use either inline styles or the &lt;style&gt; tag but not=
+ both.</td></tr></table></div><div style=3D"margin-top: 16px;"><table style=
+=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size=
+: 14px; font-weight: 400; line-height: 20px;margin-top: 8px; table-layout: =
+fixed;"><tr><td><div role=3D"radio" aria-checked=3D"true" aria-label=3D"The=
+ contents of the &lt;style&gt; tag must be CSS code, not HTML code. The &lt=
+;p&gt; will not appear at all." style=3D"border: solid 2px #5f6368; height:=
+ 16px; width: 16px; border-radius: 50%;"><div style=3D"background-color: #5=
+f6368; border: solid 5px #5f6368; border-radius: 50%; margin: 3px; height: =
+0; width: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><td style=
+=3D"word-break: break-word;">The contents of the &lt;style&gt; tag must be =
+CSS code, not HTML code. The &lt;p&gt; will not appear at all.</td></tr></t=
+able></div></div></div><div style=3D"border: 1px solid #dadce0; padding: 20=
+px 12px;background-color: #fff; border-radius: 8px; margin-bottom: 12px;mar=
+gin-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=
+=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size=
+: 16px; font-weight: 400; line-height: 24px;white-space: pre-wrap;margin: 0=
+ 0 16px;"><p>What does the=C2=A0<span style=3D"font-weight:700">&lt;style&g=
+t;</span>=C2=A0HTML tag allow?<br></p><span style=3D"color: #d93025;" aria-=
+label=3D"Required question"> *</span></h2></div><div style=3D"padding: 0 12=
+px;"><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-f=
+amily: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400;=
+ line-height: 20px;margin-top: 8px; table-layout: fixed;"><tr><td><div role=
+=3D"radio" aria-checked=3D"true" aria-label=3D"Writing one or more CSS rule=
+s in CSS syntax inside an HTML file." style=3D"border: solid 2px #5f6368; h=
+eight: 16px; width: 16px; border-radius: 50%;"><div style=3D"background-col=
+or: #5f6368; border: solid 5px #5f6368; border-radius: 50%; margin: 3px; he=
+ight: 0; width: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><td=
+ style=3D"word-break: break-word;">Writing one or more CSS rules in CSS syn=
+tax inside an HTML file.</td></tr></table></div><div style=3D"margin-top: 1=
+6px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sa=
+ns-serif;font-size: 14px; font-weight: 400; line-height: 20px;color: #70757=
+a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-c=
+hecked=3D"false" aria-label=3D"It links external CSS files to the HTML docu=
+ment." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; borde=
+r-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"=
+word-break: break-word;">It links external CSS files to the HTML document.<=
+/td></tr></table></div><div style=3D"margin-top: 16px;"><table style=3D"col=
+or: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px;=
+ font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-=
+layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-lab=
+el=3D"It is the only way to apply styles inside an HTML file." style=3D"bor=
+der: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></d=
+iv></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-w=
+ord;">It is the only way to apply styles inside an HTML file.</td></tr></ta=
+ble></div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;f=
+ont-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight:=
+ 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed=
+;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"It auto=
+matically adds common styles to your webpage." style=3D"border: solid 2px #=
+9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td styl=
+e=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">It automat=
+ically adds common styles to your webpage.</td></tr></table></div></div></d=
+iv><div style=3D"border: 1px solid #dadce0; padding: 20px 12px;background-c=
+olor: #fff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><=
+div style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;fon=
+t-family: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 4=
+00; line-height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><p>What is t=
+he main difference between inline styles and the=C2=A0<span style=3D"font-w=
+eight:700">&lt;style&gt;</span>=C2=A0tag?<br></p><span style=3D"color: #d93=
+025;" aria-label=3D"Required question"> *</span></h2></div><div style=3D"pa=
+dding: 0 12px;"><div style=3D"margin-top: 16px;"><table style=3D"color: #20=
+2124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-w=
+eight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout:=
+ fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"I=
+nline styles allow you to write CSS in a separate file, whereas the &lt;sty=
+le&gt; tag embeds CSS directly within HTML opening tags." style=3D"border: =
+solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></=
+td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;"=
+>Inline styles allow you to write CSS in a separate file, whereas the &lt;s=
+tyle&gt; tag embeds CSS directly within HTML opening tags.</td></tr></table=
+></div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font=
+-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 40=
+0; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;">=
+<tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"There is n=
+o difference between inline styles and the &lt;style&gt; tag." style=3D"bor=
+der: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></d=
+iv></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-w=
+ord;">There is no difference between inline styles and the &lt;style&gt; ta=
+g.</td></tr></table></div><div style=3D"margin-top: 16px;"><table style=3D"=
+color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14=
+px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; tab=
+le-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-=
+label=3D"The &lt;style&gt; tag allow you to write CSS in a separate file, w=
+hereas inline styles embed CSS directly within HTML opening tags." style=3D=
+"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"=
+></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: bre=
+ak-word;">The &lt;style&gt; tag allow you to write CSS in a separate file, =
+whereas inline styles embed CSS directly within HTML opening tags.</td></tr=
+></table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #202=
+124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-we=
+ight: 400; line-height: 20px;margin-top: 8px; table-layout: fixed;"><tr><td=
+><div role=3D"radio" aria-checked=3D"true" aria-label=3D"Inline styles dire=
+ctly modify individual HTML elements using a style attribute, whereas the &=
+lt;style&gt; tag allows you to write CSS in a dedicated section of the HTML=
+ file." style=3D"border: solid 2px #5f6368; height: 16px; width: 16px; bord=
+er-radius: 50%;"><div style=3D"background-color: #5f6368; border: solid 5px=
+ #5f6368; border-radius: 50%; margin: 3px; height: 0; width: 0;"></div></di=
+v></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-wo=
+rd;">Inline styles directly modify individual HTML elements using a style a=
+ttribute, whereas the &lt;style&gt; tag allows you to write CSS in a dedica=
+ted section of the HTML file.</td></tr></table></div></div></div><div style=
+=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color: #fff; b=
+order-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div style=3D"=
+padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-family: Rob=
+oto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; line-heig=
+ht: 24px;white-space: pre-wrap;margin: 0 0 16px;"><div><div><p>What is the =
+most specific selector in the code below?</p></div></div><div><div style=3D=
+"white-space:pre-wrap">p {<br>=C2=A0=C2=A0<br>}<br> <br>#side-bar {<br>=C2=
+=A0=C2=A0<br>}<br> <br>.main-content {<br> <br>}<br> <br>.main-content p {<=
+br> <br>}</div></div><span style=3D"color: #d93025;" aria-label=3D"Required=
+ question"> *</span></h2></div><div style=3D"padding: 0 12px;"><div style=
+=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,H=
+elvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 2=
+0px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=
+=3D"radio" aria-checked=3D"false" aria-label=3D".main-content" style=3D"bor=
+der: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></d=
+iv></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-w=
+ord;">.main-content</td></tr></table></div><div style=3D"margin-top: 16px;"=
+><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-se=
+rif;font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;mar=
+gin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checke=
+d=3D"false" aria-label=3D"#side-bar" style=3D"border: solid 2px #9aa0a6; he=
+ight: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-w=
+idth: 8px;"></td><td style=3D"word-break: break-word;">#side-bar</td></tr><=
+/table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #20212=
+4;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weig=
+ht: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fi=
+xed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D".mai=
+n-content p" style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px;=
+ border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td sty=
+le=3D"word-break: break-word;">.main-content p</td></tr></table></div><div =
+style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Rob=
+oto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-heig=
+ht: 20px;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio"=
+ aria-checked=3D"true" aria-label=3D"p" style=3D"border: solid 2px #5f6368;=
+ height: 16px; width: 16px; border-radius: 50%;"><div style=3D"background-c=
+olor: #5f6368; border: solid 5px #5f6368; border-radius: 50%; margin: 3px; =
+height: 0; width: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><=
+td style=3D"word-break: break-word;">p</td></tr></table></div></div></div><=
+div style=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color=
+: #fff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div =
+style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-fa=
+mily: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; =
+line-height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><p>Separating HT=
+ML and CSS into their own files helps accomplish which of the following?<br=
+></p><span style=3D"color: #d93025;" aria-label=3D"Required question"> *</s=
+pan></h2></div><div style=3D"padding: 0 12px;"><div style=3D"margin-top: 16=
+px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,san=
+s-serif;font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a=
+;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-ch=
+ecked=3D"false" aria-label=3D"More specific CSS selectors." style=3D"border=
+: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div>=
+</td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word=
+;">More specific CSS selectors.</td></tr></table></div><div style=3D"margin=
+-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,A=
+rial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;margin=
+-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=
+=3D"true" aria-label=3D"Separating HTML structure from CSS style makes the =
+code in both languages easier to read and maintain." style=3D"border: solid=
+ 2px #5f6368; height: 16px; width: 16px; border-radius: 50%;"><div style=3D=
+"background-color: #5f6368; border: solid 5px #5f6368; border-radius: 50%; =
+margin: 3px; height: 0; width: 0;"></div></div></td><td style=3D"min-width:=
+ 8px;"></td><td style=3D"word-break: break-word;">Separating HTML structure=
+ from CSS style makes the code in both languages easier to read and maintai=
+n.</td></tr></table></div><div style=3D"margin-top: 16px;"><table style=3D"=
+color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14=
+px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; tab=
+le-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-=
+label=3D"Enhances webpage load time." style=3D"border: solid 2px #9aa0a6; h=
+eight: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-=
+width: 8px;"></td><td style=3D"word-break: break-word;">Enhances webpage lo=
+ad time.</td></tr></table></div><div style=3D"margin-top: 16px;"><table sty=
+le=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-si=
+ze: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8p=
+x; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false"=
+ aria-label=3D"Better-looking CSS styles." style=3D"border: solid 2px #9aa0=
+a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D=
+"min-width: 8px;"></td><td style=3D"word-break: break-word;">Better-looking=
+ CSS styles.</td></tr></table></div></div></div><div style=3D"border: 1px s=
+olid #dadce0; padding: 20px 12px;background-color: #fff; border-radius: 8px=
+; margin-bottom: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"=
+><h2 dir=3D"auto" style=3D"color: #202124;font-family: Roboto,Helvetica,Ari=
+al,sans-serif;font-size: 16px; font-weight: 400; line-height: 24px;white-sp=
+ace: pre-wrap;margin: 0 0 16px;"><p>What is the purpose of the HTML=C2=A0<s=
+pan style=3D"font-weight:700">&lt;link&gt;</span>=C2=A0tag when it comes to=
+ styling a page?<br></p><span style=3D"color: #d93025;" aria-label=3D"Requi=
+red question"> *</span></h2></div><div style=3D"padding: 0 12px;"><div styl=
+e=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,=
+Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: =
+20px;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" ari=
+a-checked=3D"true" aria-label=3D"To link a specific stylesheet file to an H=
+TML file so that the styles get applied on the page." style=3D"border: soli=
+d 2px #5f6368; height: 16px; width: 16px; border-radius: 50%;"><div style=
+=3D"background-color: #5f6368; border: solid 5px #5f6368; border-radius: 50=
+%; margin: 3px; height: 0; width: 0;"></div></div></td><td style=3D"min-wid=
+th: 8px;"></td><td style=3D"word-break: break-word;">To link a specific sty=
+lesheet file to an HTML file so that the styles get applied on the page.</t=
+d></tr></table></div><div style=3D"margin-top: 16px;"><table style=3D"color=
+: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; f=
+ont-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-la=
+yout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=
+=3D"To make sure that all links are styled correctly on the page." style=3D=
+"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"=
+></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: bre=
+ak-word;">To make sure that all links are styled correctly on the page.</td=
+></tr></table></div><div style=3D"margin-top: 16px;"><table style=3D"color:=
+ #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; fo=
+nt-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-lay=
+out: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=
+=3D"To make sure that your inline styles are applied correctly." style=3D"b=
+order: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"><=
+/div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break=
+-word;">To make sure that your inline styles are applied correctly.</td></t=
+r></table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #20=
+2124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-w=
+eight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout:=
+ fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"T=
+o determine the specificity of CSS rules." style=3D"border: solid 2px #9aa0=
+a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D=
+"min-width: 8px;"></td><td style=3D"word-break: break-word;">To determine t=
+he specificity of CSS rules.</td></tr></table></div></div></div><div style=
+=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color: #fff; b=
+order-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div style=3D"=
+padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-family: Rob=
+oto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; line-heig=
+ht: 24px;white-space: pre-wrap;margin: 0 0 16px;"><div><div><p>The followin=
+g HTML code attempts to use inline styling to change the color of the parag=
+raph text, but fails to do so. Why?</p></div></div><div><div style=3D"white=
+-space:pre-wrap">&lt;p color=3D&quot;red;&quot;&gt;I am learning to code!&l=
+t;/p&gt;</div></div><span style=3D"color: #d93025;" aria-label=3D"Required =
+question"> *</span></h2></div><div style=3D"padding: 0 12px;"><div style=3D=
+"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helv=
+etica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px=
+;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D=
+"radio" aria-checked=3D"false" aria-label=3D"The value of the color attribu=
+te must be changed to style: red;." style=3D"border: solid 2px #9aa0a6; hei=
+ght: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-wi=
+dth: 8px;"></td><td style=3D"word-break: break-word;">The value of the colo=
+r attribute must be changed to style: red;.</td></tr></table></div><div sty=
+le=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto=
+,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height:=
+ 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div ro=
+le=3D"radio" aria-checked=3D"false" aria-label=3D"The color red should be s=
+et to Red instead." style=3D"border: solid 2px #9aa0a6; height: 16px; width=
+: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td>=
+<td style=3D"word-break: break-word;">The color red should be set to Red in=
+stead.</td></tr></table></div><div style=3D"margin-top: 16px;"><table style=
+=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size=
+: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px;=
+ table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" a=
+ria-label=3D"A &lt;style&gt; tag must be used to add styles to HTML." style=
+=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50=
+%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: =
+break-word;">A &lt;style&gt; tag must be used to add styles to HTML.</td></=
+tr></table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #2=
+02124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-=
+weight: 400; line-height: 20px;margin-top: 8px; table-layout: fixed;"><tr><=
+td><div role=3D"radio" aria-checked=3D"true" aria-label=3D"The color attrib=
+ute is invalid. It should be changed to style and then set equal to color: =
+red;: &lt;p style=3D&quot;color:red;&quot;&gt;." style=3D"border: solid 2px=
+ #5f6368; height: 16px; width: 16px; border-radius: 50%;"><div style=3D"bac=
+kground-color: #5f6368; border: solid 5px #5f6368; border-radius: 50%; marg=
+in: 3px; height: 0; width: 0;"></div></div></td><td style=3D"min-width: 8px=
+;"></td><td style=3D"word-break: break-word;">The color attribute is invali=
+d. It should be changed to style and then set equal to color: red;: &lt;p s=
+tyle=3D&quot;color:red;&quot;&gt;.</td></tr></table></div></div></div><div =
+style=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color: #f=
+ff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div styl=
+e=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-family=
+: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; line=
+-height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><div><div><p>What wi=
+ll the color of the links be after applying the CSS below?</p></div></div><=
+div><div style=3D"white-space:pre-wrap">body {<br> color: green;<br>}<br> <=
+br>.main-content a {<br>=C2=A0=C2=A0color: blue;<br>}<br> <br>a {<br> color=
+: red !important;<br>}</div></div><span style=3D"color: #d93025;" aria-labe=
+l=3D"Required question"> *</span></h2></div><div style=3D"padding: 0 12px;"=
+><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-famil=
+y: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; lin=
+e-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><t=
+d><div role=3D"radio" aria-checked=3D"false" aria-label=3D"Black" style=3D"=
+border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;">=
+</div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: brea=
+k-word;">Black</td></tr></table></div><div style=3D"margin-top: 16px;"><tab=
+le style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;f=
+ont-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-t=
+op: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"=
+false" aria-label=3D"Blue" style=3D"border: solid 2px #9aa0a6; height: 16px=
+; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;=
+"></td><td style=3D"word-break: break-word;">Blue</td></tr></table></div><d=
+iv style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: =
+Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-h=
+eight: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><=
+div role=3D"radio" aria-checked=3D"false" aria-label=3D"Green" style=3D"bor=
+der: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></d=
+iv></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-w=
+ord;">Green</td></tr></table></div><div style=3D"margin-top: 16px;"><table =
+style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font=
+-size: 14px; font-weight: 400; line-height: 20px;margin-top: 8px; table-lay=
+out: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"true" aria-label=
+=3D"Red" style=3D"border: solid 2px #5f6368; height: 16px; width: 16px; bor=
+der-radius: 50%;"><div style=3D"background-color: #5f6368; border: solid 5p=
+x #5f6368; border-radius: 50%; margin: 3px; height: 0; width: 0;"></div></d=
+iv></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-w=
+ord;">Red</td></tr></table></div></div></div><div style=3D"border: 1px soli=
+d #dadce0; padding: 20px 12px;background-color: #fff; border-radius: 8px; m=
+argin-bottom: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"><h=
+2 dir=3D"auto" style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,=
+sans-serif;font-size: 16px; font-weight: 400; line-height: 24px;white-space=
+: pre-wrap;margin: 0 0 16px;"><p>What does the=C2=A0<span style=3D"font-wei=
+ght:700">font-family</span>=C2=A0property control?<br></p><span style=3D"co=
+lor: #d93025;" aria-label=3D"Required question"> *</span></h2></div><div st=
+yle=3D"padding: 0 12px;"><div style=3D"margin-top: 16px;"><table style=3D"c=
+olor: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14p=
+x; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; tabl=
+e-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-l=
+abel=3D"It defines and creates a new font." style=3D"border: solid 2px #9aa=
+0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td style=
+=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">It defines =
+and creates a new font.</td></tr></table></div><div style=3D"margin-top: 16=
+px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,san=
+s-serif;font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a=
+;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-ch=
+ecked=3D"false" aria-label=3D"The typeface used by the element." style=3D"b=
+order: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"><=
+/div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break=
+-word;">The typeface used by the element.</td></tr></table></div><div style=
+=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,H=
+elvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 2=
+0px;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria=
+-checked=3D"true" aria-label=3D"It allows you to group all the fonts you us=
+e in your stylesheet into a family." style=3D"border: solid 2px #5f6368; he=
+ight: 16px; width: 16px; border-radius: 50%;"><div style=3D"background-colo=
+r: #5f6368; border: solid 5px #5f6368; border-radius: 50%; margin: 3px; hei=
+ght: 0; width: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><td =
+style=3D"word-break: break-word;">It allows you to group all the fonts you =
+use in your stylesheet into a family.</td></tr></table></div></div></div><d=
+iv style=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color:=
+ #fff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div s=
+tyle=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-fam=
+ily: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; l=
+ine-height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><p>Which of the f=
+ollowing is a correct CSS declaration?<br></p><span style=3D"color: #d93025=
+;" aria-label=3D"Required question"> *</span></h2></div><div style=3D"paddi=
+ng: 0 12px;"><div style=3D"margin-top: 16px;"><table style=3D"color: #20212=
+4;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weig=
+ht: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fi=
+xed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"&quo=
+t;color&quot;: green" style=3D"border: solid 2px #9aa0a6; height: 16px; wid=
+th: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></t=
+d><td style=3D"word-break: break-word;">&quot;color&quot;: green</td></tr><=
+/table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #20212=
+4;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weig=
+ht: 400; line-height: 20px;margin-top: 8px; table-layout: fixed;"><tr><td><=
+div role=3D"radio" aria-checked=3D"true" aria-label=3D"color: green;" style=
+=3D"border: solid 2px #5f6368; height: 16px; width: 16px; border-radius: 50=
+%;"><div style=3D"background-color: #5f6368; border: solid 5px #5f6368; bor=
+der-radius: 50%; margin: 3px; height: 0; width: 0;"></div></div></td><td st=
+yle=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">color: g=
+reen;</td></tr></table></div><div style=3D"margin-top: 16px;"><table style=
+=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size=
+: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px;=
+ table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" a=
+ria-label=3D"color =3D green;" style=3D"border: solid 2px #9aa0a6; height: =
+16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: =
+8px;"></td><td style=3D"word-break: break-word;">color =3D green;</td></tr>=
+</table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #2021=
+24;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-wei=
+ght: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: f=
+ixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"fon=
+t green" style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; bor=
+der-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=
+=3D"word-break: break-word;">font green</td></tr></table></div></div></div>=
+<div style=3D"border: 1px solid #dadce0; padding: 20px 12px;background-colo=
+r: #fff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div=
+ style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-f=
+amily: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400;=
+ line-height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><p>The=C2=A0<sp=
+an style=3D"font-weight:700">font-weight</span>=C2=A0property will adjust w=
+hich of the following?<br></p><span style=3D"color: #d93025;" aria-label=3D=
+"Required question"> *</span></h2></div><div style=3D"padding: 0 12px;"><di=
+v style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: R=
+oboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-he=
+ight: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><d=
+iv role=3D"radio" aria-checked=3D"false" aria-label=3D"The spacing between =
+letters." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; bo=
+rder-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=
+=3D"word-break: break-word;">The spacing between letters.</td></tr></table>=
+</div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-=
+family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400=
+; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><=
+tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"How transpa=
+rent text appears." style=3D"border: solid 2px #9aa0a6; height: 16px; width=
+: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td>=
+<td style=3D"word-break: break-word;">How transparent text appears.</td></t=
+r></table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #20=
+2124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-w=
+eight: 400; line-height: 20px;margin-top: 8px; table-layout: fixed;"><tr><t=
+d><div role=3D"radio" aria-checked=3D"true" aria-label=3D"How thin or thick=
+ text appears." style=3D"border: solid 2px #5f6368; height: 16px; width: 16=
+px; border-radius: 50%;"><div style=3D"background-color: #5f6368; border: s=
+olid 5px #5f6368; border-radius: 50%; margin: 3px; height: 0; width: 0;"></=
+div></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: =
+break-word;">How thin or thick text appears.</td></tr></table></div><div st=
+yle=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Robot=
+o,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height=
+: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div r=
+ole=3D"radio" aria-checked=3D"false" aria-label=3D"How small or large text =
+appears." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; bo=
+rder-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=
+=3D"word-break: break-word;">How small or large text appears.</td></tr></ta=
+ble></div></div></div><div style=3D"border: 1px solid #dadce0; padding: 20p=
+x 12px;background-color: #fff; border-radius: 8px; margin-bottom: 12px;marg=
+in-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D=
+"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 1=
+6px; font-weight: 400; line-height: 24px;white-space: pre-wrap;margin: 0 0 =
+16px;"><p>Which of the following will set an element=E2=80=99s background t=
+o an image?<br></p><span style=3D"color: #d93025;" aria-label=3D"Required q=
+uestion"> *</span></h2></div><div style=3D"padding: 0 12px;"><div style=3D"=
+margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helve=
+tica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;=
+margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-che=
+cked=3D"true" aria-label=3D"background-image: url(&quot;image.jpg&quot;);" =
+style=3D"border: solid 2px #5f6368; height: 16px; width: 16px; border-radiu=
+s: 50%;"><div style=3D"background-color: #5f6368; border: solid 5px #5f6368=
+; border-radius: 50%; margin: 3px; height: 0; width: 0;"></div></div></td><=
+td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">bac=
+kground-image: url(&quot;image.jpg&quot;);</td></tr></table></div><div styl=
+e=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,=
+Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: =
+20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div rol=
+e=3D"radio" aria-checked=3D"false" aria-label=3D"background-image: url =3D =
+&quot;image.jpg&quot;;" style=3D"border: solid 2px #9aa0a6; height: 16px; w=
+idth: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"><=
+/td><td style=3D"word-break: break-word;">background-image: url =3D &quot;i=
+mage.jpg&quot;;</td></tr></table></div><div style=3D"margin-top: 16px;"><ta=
+ble style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;=
+font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-=
+top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D=
+"false" aria-label=3D"background-image: &quot;image.jpg&quot;;" style=3D"bo=
+rder: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></=
+div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-=
+word;">background-image: &quot;image.jpg&quot;;</td></tr></table></div><div=
+ style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Ro=
+boto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-hei=
+ght: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><di=
+v role=3D"radio" aria-checked=3D"false" aria-label=3D"background.image =3D =
+url(&quot;image.jpg&quot;);" style=3D"border: solid 2px #9aa0a6; height: 16=
+px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8p=
+x;"></td><td style=3D"word-break: break-word;">background.image =3D url(&qu=
+ot;image.jpg&quot;);</td></tr></table></div></div></div></div><table align=
+=3D"center" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width: 672px; =
+min-width: 154px; border-collapse: separate; border-spacing: 0 0.2em;" widt=
+h=3D"100%" role=3D"presentation"><tbody><tr height=3D"24px"><td></td></tr><=
+tr><td><a href=3D"https://docs.google.com/forms?usp=3Dmail_form_link" style=
+=3D"color: #424242; font-size: 13px;">Create your own Google Form</a></td><=
+/tr><tr><td><a href=3D"https://docs.google.com/forms/u/0/d/e/1FAIpQLSfO4wwj=
+yolBtWRu5_piR5fbMyDdxxnnj3QbIoef0WwPW8nx0Q/reportabuse?source=3Dhttps://doc=
+s.google.com/forms/d/e/1FAIpQLSfO4wwjyolBtWRu5_piR5fbMyDdxxnnj3QbIoef0WwPW8=
+nx0Q/viewform&amp;usp=3Dmail_receipt_abuse" target=3D"_blank" style=3D"colo=
+r: #424242; font-size: 13px;">Report Abuse</a></td></tr></tbody></table></d=
+iv></body></html>
+--000000000000dd3ee805f82bcb95--

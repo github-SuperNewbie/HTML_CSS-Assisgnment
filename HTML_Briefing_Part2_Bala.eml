@@ -1,0 +1,686 @@
+Delivered-To: shank.vattigunta@gmail.com
+Received: by 2002:a05:6a10:87d5:b0:478:9fb3:c546 with SMTP id g21csp237053pxr;
+        Thu, 30 Mar 2023 22:24:28 -0700 (PDT)
+X-Received: by 2002:a92:de48:0:b0:325:e08e:b06f with SMTP id e8-20020a92de48000000b00325e08eb06fmr17467047ilr.14.1680240268644;
+        Thu, 30 Mar 2023 22:24:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1680240268; cv=none;
+        d=google.com; s=arc-20160816;
+        b=p2jdOXSsHFM+89XkGpgplJIlBbftno4SZOE0dmm/L78Z5hzSrF7qx3Rj1wW58a81z0
+         k36s1pE2ovOffRAETLnJrp+l8pk5PUMiCEH8I4tjYYmlM8332vU0R6ucKr8AaScfwxvB
+         o3TjkLS6hqYpiVMboAn85Z91LgQzqF3OZYHWV5S15jPCI9VUiDZlgbyTIEP70KiWGaVz
+         o6/9t2pHBD3lUKnc9s1xzXHhIdA0aHoOW7L69KfGBvCJeGpAjhLcneMBEh7BlEFEIzvM
+         zZnHFOPy1XFFbSNSWOYu3URDDuVaxBvrgr4Qg8NJUeOwYv6jd3xmhy0WKsnu0JJLk6Pa
+         INCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:from:subject:date:message-id:feedback-id:mime-version
+         :dkim-signature;
+        bh=E7ZhRBWjLXkBT7O6+0YEsWqz7Hyg2ixk8UYLG4w2oPs=;
+        b=uclNGNiVvuUjkeH/j0SizmCtlBSauNLDo6Xa97IO/iOBj7BfILCyq0zg8FqD7NWWXv
+         c/62puFmQ7eg24iaMF1HmKQr6Vcs3msxGL59sOA5H2IGcamuSrkZJWcsjCf2KnZGWjDI
+         uWQeAO12YftAOMYfeg3tg6poPT/6HN2jqdxdmZ895Yqw9zLgL2oOy2XEo+WP72iQ3sWL
+         RssDDdms14vCDRTqTFVgFXsvnXKoYUf9HKzTRB+nDhLW+yLyCy1jY20PG1u57m/xzFhW
+         SliLadqfjpCDwCdRAckmWtBblk6K/5whcIRe4i8e0Y7SgfhhujFIC8SMQ12ovEBYW5Hb
+         LM1g==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@google.com header.s=20210112 header.b=NNRq24jT;
+       spf=pass (google.com: domain of 3jg4mzbykacsmvytz-yljlpwaz-uvylwsfnvvnsl.jvt@trix.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3jG4mZBYKACsMVYTZ-YLJLPWaZ-UVYLWSfNVVNSL.JVT@trix.bounces.google.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=google.com
+Return-Path: <3jG4mZBYKACsMVYTZ-YLJLPWaZ-UVYLWSfNVVNSL.JVT@trix.bounces.google.com>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id ay21-20020a056638411500b00408f4c0e1ecsor281592jab.142.2023.03.30.22.24.28
+        for <shank.vattigunta@gmail.com>
+        (Google Transport Security);
+        Thu, 30 Mar 2023 22:24:28 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 3jg4mzbykacsmvytz-yljlpwaz-uvylwsfnvvnsl.jvt@trix.bounces.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@google.com header.s=20210112 header.b=NNRq24jT;
+       spf=pass (google.com: domain of 3jg4mzbykacsmvytz-yljlpwaz-uvylwsfnvvnsl.jvt@trix.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3jG4mZBYKACsMVYTZ-YLJLPWaZ-UVYLWSfNVVNSL.JVT@trix.bounces.google.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=google.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112; t=1680240268;
+        h=to:from:subject:date:message-id:feedback-id:mime-version:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=E7ZhRBWjLXkBT7O6+0YEsWqz7Hyg2ixk8UYLG4w2oPs=;
+        b=NNRq24jTGDYSS+0IpbiWU/VVCfMATjYqEVYYF1WIFaNXz6gHyFA/5dygqsv/tJ5vvs
+         zIZdoYj+tHjU2PrCfxO5h6Zlfp325OL7uMkoYKcaq2Qvn0ygYaLKKomOACotnNSPBviB
+         2+VrhuS8uPuVz9RQMWX/sPkeorqEuyfcAJQ/0ByeMhbh571U34yzL8Gi5v9JfFjwdwRJ
+         y8U+TISRLrT4kXEOIn5tvLEoRNnK3uVhCV+W1hfGm9dRcpQbaNAn/Bcqki5nclmhOHnQ
+         MDcxNlgIgZNFeoyWN8c0QKxJzhdWbvPOXyNLj0Q+PA9GmHe2EazotU4z3fm+SScMUME3
+         hjYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680240268;
+        h=to:from:subject:date:message-id:feedback-id:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=E7ZhRBWjLXkBT7O6+0YEsWqz7Hyg2ixk8UYLG4w2oPs=;
+        b=XekKInR4EcPH36IwN276w1QomJyinm4myacd7D0pQt57KrbQyChh27fIH/g3E4jcAJ
+         2/jXZr/gAguESKEbYHAP1zGgZtOr3M56b0Rk6zLOKYqPbtPNBfw/GZfB1XdkdUrmRJR2
+         20bvhMTmmvThn9+eZAVV/MsReQYcz9LkEVbEZ0S9VZ+MChY6hI7oxuE9OfLm1pwna+3I
+         5zZR2EEUverl0SvIUhhNKfFPRp8SpZiJM22SMyygMOgfLlvPARlhDR/J6JugOJyxfnRI
+         GN+GIQ3Ff6/1jD48xc7/7jpXV1tvupk+u/7Ky6EEyQftvm8TTJacT6/CeL53IvCpKlZB
+         eREg==
+X-Gm-Message-State: AO0yUKXkD4TiHkmqfuZIHrjIr/EUglfPszJxNh+oPCvL+9QTyGxN60wU
+	lF4PEfwZ6FGDCLsOKxP7KU2qj/WBH/iK5sAQ9jOfpjdq
+X-Google-Smtp-Source: AK7set+EY2cVsL21DueqOpGQDUUgiO2cqwDN/peg6ow0HgoXz9N8PqYYO6PINB7tnfpbK9MuBv38HCUyz+mflekfk6JIGw==
+MIME-Version: 1.0
+X-Received: by 2002:a05:6638:10d5:b0:401:d47f:e799 with SMTP id
+ q21-20020a05663810d500b00401d47fe799mr10781343jad.0.1680240268333; Thu, 30
+ Mar 2023 22:24:28 -0700 (PDT)
+Feedback-ID: MailTypeResponseReceipt:GoogleForms
+X-GoogleForms-FormId: e/1FAIpQLSfH1Clw3ZNiIE_lmv4G7wPmr6gvnzZe0FOweeCRbu8rF79zjA
+X-GoogleForms-CustomerDisplayName: Mr. & Mrs. Cloud
+Message-ID: <00000000000054dec105f82b6c90@google.com>
+Date: Fri, 31 Mar 2023 05:24:28 +0000
+Subject: HTML Briefing
+From: Google Forms <forms-receipts-noreply@google.com>
+To: shank.vattigunta@gmail.com
+Content-Type: multipart/alternative; boundary="00000000000054dead05f82b6c8d"
+
+--00000000000054dead05f82b6c8d
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+Content-Transfer-Encoding: base64
+
+R29vZ2xlIEZvcm1zDQoNCg0KVGhhbmtzIGZvciBmaWxsaW5nIG91dCBIVE1MIEJyaWVmaW5nDQpI
+ZXJlJ3Mgd2hhdCB3YXMgcmVjZWl2ZWQuDQoNClZpZXcgc2NvcmUNCg0KDQpIVE1MIEJyaWVmaW5n
+DQoNCkJhc2ljIEh0bWwgUUENCg0KDQpFbWFpbCAqDQoNCg0Kc2hhbmsudmF0dGlndW50YUBnbWFp
+bC5jb20NCg0KDQoxLldoaWNoIG9mIHRoZSBmb2xsb3dpbmcgaXMgdGhlIGNvcnJlY3Qgc3ludGF4
+IGZvciB0aGUgcGFyYWdyYXBoIEhUTUwgIA0KZWxlbWVudD8NCioNCg0KDQo8cC8+SSBhbSBhIHBh
+cmFncmFwaDxwPg0KDQoNCjxwPkkgYW0gYSBwYXJhZ3JhcGg8L3A+DQoNCg0KPHA+SSBhbSBhIHBh
+cmFncmFwaDxwLz4NCg0KDQo8cD5JIGFtIGEgcGFyYWdyYXBoPFxwPg0KDQoNCjIuV2hpY2ggb2Yg
+dGhlIGZvbGxvd2luZyBlbGVtZW50cyB3aWxsIGRpcmVjdGx5IGFmZmVjdCB0aGUgdmVydGljYWwg
+c3BhY2luZyAgDQppbiBhbiBIVE1MIGxheW91dD8NCioNCg0KDQo8Yj4NCg0KDQo8YnJlYWs+DQoN
+Cg0KPGJyZWFrLy4NCg0KDQo8YnI+DQoNCg0KMy5XaHkgaXMgdGhlIGNvZGUgYmVsb3cgaW5jb3Jy
+ZWN0Pw0KDQoNCjx2aWRlbyBzcmM9Im15VmlkLm1wNCIgY29udHJvbHMgPg0KDQoqDQoNCg0KVGhl
+IHdpZHRoIGFuZCBoZWlnaHQgb2YgdGhlIHZpZGVvIG11c3QgYmUgc3BlY2lmaWVkLg0KDQoNClRo
+ZSBteVZpZC5tcDQgdmlkZW8gc291cmNlIChzcmM9KSBpcyBub3QgdmFsaWQuDQoNCg0KVGhlIHZp
+ZGVvIGVsZW1lbnQgaXMgbm90IGEgc2VsZi1jbG9zaW5nIHRhZy4gSXQgc2hvdWxkIGhhdmUgYW4g
+b3BlbmluZyBhbmQgIA0KYSBjbG9zaW5nIHRhZy4NCg0KDQpBIHZhbGlkIHNlbGYtY2xvc2luZyB0
+YWcgZW5kcyB3aXRoIC8+Lg0KDQoNCjQuV2hhdCBIVE1MIGNvZGUgd2lsbCBtb3N0IHdlYiBicm93
+c2VycyBkaXNwbGF5IGFzIGl0YWxpY3M/DQoNCioNCg0KDQo8c3Ryb25nPkhlbGxvPC9zdHJvbmc+
+DQoNCg0KPHA+SGVsbG88L3A+DQoNCg0KPGVtPkhlbGxvPC9lbT4NCg0KDQo8ZGl2PkhlbGxvPC9k
+aXY+DQoNCg0KNS5XaGljaCBlbGVtZW50IGlzIHRoZSBwYXJlbnQgb2YgPHA+TXkgUGFyYWdyYXBo
+PC9wPj8NCg0KDQo8Ym9keT4NCjxwPlBhcmFncmFwaCAxPC9wPg0KPGRpdj4NCjxhIGhyZWY9Imh0
+dHA6Ly93d3cuY29kZWNhZGVteS5jb20iPkNvZGVjYWRlbXk8L2E+DQo8cD5NeSBQYXJhZ3JhcGg8
+L3A+DQo8L2Rpdj4NCjwvYm9keT4NCg0KKg0KDQoNCjxhPg0KDQoNCjxkaXY+DQoNCg0KPGJvZHk+
+DQoNCg0KPHA+DQoNCg0KNi5XaGljaCBvZiB0aGUgZm9sbG93aW5nIHRhZ3Mgd291bGQgY29udGFp
+biB0aGUgSFRNTCBmb3IgYSB3ZWIgcGFnZSdzICANCnZpc2libGUgY29udGVudD8NCg0KKg0KDQoN
+CjxhYm91dD4NCg0KDQo8Y29udD4NCg0KDQo8Ym9keT4NCg0KDQo8aHRtbD4NCg0KDQo3LldoaWNo
+IG9mIHRoZSBmb2xsb3dpbmcgaXMgdmFsaWQgSFRNTCBmb3IgdGhlIGhlYWRpbmcgdGFnIHdpdGgg
+dGhlICANCnNtYWxsZXN0IHNpemUgYW5kIGxvd2VzdCByYW5rIGluIHRoZSBoaWVyYXJjaHk/DQoN
+CioNCg0KDQo8aDY+DQoNCg0KPGgzPg0KDQoNCjxoMT4NCg0KDQo8aDk+DQoNCg0KOC5XaGF0IGlz
+IHRoZSBjb3JyZWN0IGRlZmluaXRpb24gb2YgYW4gSFRNTCBlbGVtZW50Pw0KDQoqDQoNCg0KVGhl
+IHNlY29uZCwgb3IgY2xvc2luZywgSFRNTCB0YWcuIENsb3NpbmcgdGFncyBoYXZlIGEgZm9yd2Fy
+ZCBzbGFzaCAoLykgIA0KaW5zaWRlIG9mIHRoZW0uDQoNCg0KSFRNTCBjb2RlIHRoYXQgZG9lcyBu
+b3QgcmVxdWlyZSBvcGVuaW5nIG9yIGNsb3NpbmcgdGFncy4NCg0KDQpUaGUgZmlyc3QsIG9yIG9w
+ZW5pbmcsIEhUTUwgdGFnLg0KDQoNCkFuIEhUTUwgdGFnIGFuZCB0aGUgY29udGVudCB0aGF0IGl0
+IGNvbnRhaW5zIG9yIG1hcmtzIHVwLg0KDQoNCjkuSG93IHdvdWxkIHRoZSBvdXRwdXQgb2YgdGhl
+IGNvZGUgYmVsb3cgY2hhbmdlIGlmIDx1bD4gYW5kIDwvdWw+IHdlcmUgIA0KY2hhbmdlZCB0byA8
+b2w+IGFuZCA8L29sPiwgcmVzcGVjdGl2ZWx5Pw0KDQoNCjx1bD4NCjxsaT5Mb3JlbTwvbGk+DQo8
+bGk+SXBzdW08L2xpPg0KPGxpPkhvcnJpYmlsaXM8L2xpPg0KPC91bD4NCg0KKg0KDQoNClRoZSBj
+b2RlIHdvdWxkIG5vIGxvbmdlciBvdXRwdXQgYW55IHZpc2libGUgY29udGVudCBpbiB0aGUgYnJv
+d3Nlci4NCg0KDQpObyBjaGFuZ2VzIHRvIHRoZSBvdXRwdXQgd291bGQgb2NjdXIuDQoNCg0KQnVs
+bGV0IHBvaW50cyBpbiB0aGUgb3V0cHV0IHdvdWxkIGNoYW5nZSB0byBudW1iZXJzLg0KDQoNCk51
+bWJlcnMgaW4gdGhlIG91dHB1dCB3b3VsZCBjaGFuZ2UgdG8gYnVsbGV0IHBvaW50cy4NCg0KDQox
+MC5UaGUgZm9sbG93aW5nIGNvZGUgcmVzdWx0cyBpbiBubyB2aXNpYmxlIG91dHB1dCB0byB0aGUg
+YnJvd3Nlci4gV2h5Pw0KDQoNCjxvbD4NCg0KDQoNCjwvb2w+DQoNCioNCg0KDQpMaXN0IGl0ZW1z
+IG11c3QgYmUgYWRkZWQgdG8gdGhlIGxpc3QuDQoNCg0KVGhlIDxvbD4gdGFnIHNpZ25pZmllcyDi
+gJxvbGTigJ0gaW5mb3JtYXRpb24sIG1lYW5pbmcgdGhlIGNvbnRlbnRzIHdpbGwgbmV2ZXIgIA0K
+ZGlzcGxheS4NCg0KDQo8b2w+IGlzIG5vdCBhIHZhbGlkIEhUTUwgZWxlbWVudC4NCg0KDQpUaGUg
+PG9sPiB0YWcgbXVzdCBiZSByZXBsYWNlZCB3aXRoIGEgPHVsPiB0YWcuDQoNCg0KMTEuVGhlIGFi
+YnJldmlhdGlvbiBIVE1MIHN0YW5kcyBmb3Igd2hpY2ggb2YgdGhlIGZvbGxvd2luZz8NCg0KKg0K
+DQoNCkh5cGVyVGV4dCBNYXJrdXAgTGFuZ3VhZ2UNCg0KDQpIeXBlclRyYW5zZmVyIE1hcmtkb3du
+IExhbmd1YWdlDQoNCg0KSHlwZXJUcmFuc2ZlciBNYXJrdXAgTGFuZ3VhZ2UNCg0KDQpIeXBlclRl
+eHQgTWFya2Rvd24gTGFuZ3VhZ2UNCg0KDQoxMi5UaGUgZm9sbG93aW5nIGNvZGUgaXMgc3VwcG9z
+ZWQgdG8gZGlzcGxheSBhbiBpbWFnZSwgYnV0IGZhaWxzIHRvIGRvIHNvLiAgDQpXaHk/DQoNCg0K
+PGltZyBodHRwczovL3d3dy5leGFtcGxlLmNvbS9sYXB0b3AuanBnIC8+DQoNCioNCg0KDQpUaGUg
+PGltZz4gdGFnIHNob3VsZCBiZSByZXBsYWNlZCB3aXRoIGFuIDxpbWFnZT4gdGFnLg0KDQoNClRo
+ZSBzcmMgYXR0cmlidXRlIGlzIG1pc3NpbmcgYW5kIG11c3QgYmUgc2V0IGVxdWFsIHRvIHRoZSBp
+bWFnZSBVUkwsICANCmVuY2xvc2VkIGluIGRvdWJsZSBxdW90YXRpb24gbWFya3MuDQoNCg0KVGhl
+IDxpbWc+IHRhZyBjYW4gb25seSBkaXNwbGF5IC5wbmcgb3IgLnN2ZyBpbWFnZSBmb3JtYXRzLg0K
+DQoNClRoZSBpbWFnZSBVUkwgc2hvdWxkIGJlIGFsbCB1cHBlcmNhc2UuDQoNCg0KQ3JlYXRlIHlv
+dXIgb3duIEdvb2dsZSBGb3JtDQoNClJlcG9ydCBBYnVzZQ0KDQoNCg==
+--00000000000054dead05f82b6c8d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><style nonce=3D"6kTN2wg04B0a4Pt59bItuA">@import url(https://fon=
+ts.googleapis.com/css?family=3DGoogle+Sans:400,500|Roboto:300,400,400i,500,=
+700&subset=3Dlatin,vietnamese,latin-ext,cyrillic,greek,cyrillic-ext,greek-e=
+xt);</style><style nonce=3D"6kTN2wg04B0a4Pt59bItuA">[class=3D"x_body-conten=
+t-wrapper"] * {white-space: normal !important;}</style></head><body dir=3D"=
+ltr" style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif=
+;font-size: 14px; font-weight: 400; line-height: 20px;text-align: start; wo=
+rd-wrap: break-word; margin: 0; padding: 0; height: 100%; width: 100%;"><ta=
+ble border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"background-co=
+lor:rgb(103,58,183);" width=3D"100%" role=3D"presentation"><tbody><tr heigh=
+t=3D"64px"><td style=3D"padding: 0 24px;"><img alt=3D"Google Forms" height=
+=3D"26px" style=3D"display: inline-block; margin: 0; vertical-align: middle=
+;" width=3D"143px" src=3D"https://www.gstatic.com/docs/forms/google_forms_l=
+ogo_lockup_white_2x.png"></td></tr></tbody></table><div class=3D"body-conte=
+nt-wrapper" style=3D"padding: 12px; background-color: rgb(240,235,248);"><d=
+iv style=3D"margin: 0 auto; max-width: 640px; min-width: 154px;"><div style=
+=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color: #fff; b=
+order-radius: 8px; margin-bottom: 12px;padding: 20px;"><h1 style=3D"color: =
+#202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 20px; fon=
+t-weight: 400; line-height: 28px;margin: 0 0 12px;">Thanks for filling out =
+<a href=3D"https://docs.google.com/forms/d/e/1FAIpQLSfH1Clw3ZNiIE_lmv4G7wPm=
+r6gvnzZe0FOweeCRbu8rF79zjA/viewform?usp=3Dmail_form_link" target=3D"_blank"=
+ style=3D"white-space: pre-wrap;">HTML Briefing</a></h1>Here's what was rec=
+eived.<div style=3D"margin-top: 16px;"><div style=3D"margin-top: 24px"><a h=
+ref=3D"https://docs.google.com/forms/u/0/d/e/1FAIpQLSfH1Clw3ZNiIE_lmv4G7wPm=
+r6gvnzZe0FOweeCRbu8rF79zjA/viewscore?viewscore=3DAE0zAgCQj8W3sH441N6oi_ZT_g=
+ZK4Oyx5aidIv4VQaAZ6IAXbYrXRHvP_fR5QJZCud1O7zk" target=3D"_blank" style=3D"b=
+order-radius: 4px;font-family: &#39;Google Sans&#39;,Roboto,Helvetica,Arial=
+,sans-serif;font-size: 14px; font-weight: 500; padding: 8px 24px; text-alig=
+n: center; text-decoration: none;background-color: rgb(103,58,183); color: =
+#fff;">View score</a></div><div itemprop=3D"action" itemscope itemtype=3D"h=
+ttp://schema.org/ViewAction"><meta itemprop=3D"url" content=3D"https://docs=
+.google.com/forms/u/0/d/e/1FAIpQLSfH1Clw3ZNiIE_lmv4G7wPmr6gvnzZe0FOweeCRbu8=
+rF79zjA/viewscore?viewscore=3DAE0zAgCQj8W3sH441N6oi_ZT_gZK4Oyx5aidIv4VQaAZ6=
+IAXbYrXRHvP_fR5QJZCud1O7zk"><meta itemprop=3D"name" content=3D"View your sc=
+ore"></div></div></div><div style=3D"border-bottom: 1px solid #dadce0; bord=
+er-left: 1px solid #dadce0; border-right: 1px solid #dadce0; border-top: 8p=
+x solid rgb(103,58,183); padding: 20px;background-color: #fff; border-radiu=
+s: 8px; margin-bottom: 12px;"><h1 dir=3D"ltr" style=3D"font-family: Roboto,=
+Helvetica,Arial,sans-serif;font-size: 32px; font-weight: 400; line-height: =
+42px;white-space: pre-wrap;margin: 0 0 12px;">HTML Briefing</h1><div style=
+=3D"white-space: pre-wrap;margin-bottom: 12px;">Basic Html QA</div></div><d=
+iv style=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color:=
+ #fff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div s=
+tyle=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-fam=
+ily: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; l=
+ine-height: 24px;white-space: pre-wrap;margin: 0 0 16px;">Email<span style=
+=3D"color: #d93025;" aria-label=3D"Required question"> *</span></h2></div><=
+div style=3D"padding: 0 12px;"><div style=3D"width: 100%;"><div dir=3D"auto=
+" style=3D"white-space: pre-wrap;border-bottom: 1px dotted rgba(0,0,0,0.38)=
+;margin: 12px 0 8px; min-height: 20px;display: inline-block; max-width: 100=
+%; min-width: 50%;">shank.vattigunta@gmail.com</div></div></div></div><div =
+style=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color: #f=
+ff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div styl=
+e=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-family=
+: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; line=
+-height: 24px;white-space: pre-wrap;margin: 0 0 16px;">1.Which of the follo=
+wing is the correct syntax for the paragraph HTML element?<br><span style=
+=3D"color: #d93025;" aria-label=3D"Required question"> *</span></h2></div><=
+div style=3D"padding: 0 12px;"><div style=3D"margin-top: 16px;"><table styl=
+e=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-siz=
+e: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px=
+; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" =
+aria-label=3D"&lt;p/&gt;I am a paragraph&lt;p&gt;" style=3D"border: solid 2=
+px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td =
+style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">&lt;p/=
+&gt;I am a paragraph&lt;p&gt;</td></tr></table></div><div style=3D"margin-t=
+op: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Ari=
+al,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;margin-t=
+op: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"=
+true" aria-label=3D"&lt;p&gt;I am a paragraph&lt;/p&gt;" style=3D"border: s=
+olid 2px #5f6368; height: 16px; width: 16px; border-radius: 50%;"><div styl=
+e=3D"background-color: #5f6368; border: solid 5px #5f6368; border-radius: 5=
+0%; margin: 3px; height: 0; width: 0;"></div></div></td><td style=3D"min-wi=
+dth: 8px;"></td><td style=3D"word-break: break-word;">&lt;p&gt;I am a parag=
+raph&lt;/p&gt;</td></tr></table></div><div style=3D"margin-top: 16px;"><tab=
+le style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;f=
+ont-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-t=
+op: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"=
+false" aria-label=3D"&lt;p&gt;I am a paragraph&lt;p/&gt;" style=3D"border: =
+solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></=
+td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;"=
+>&lt;p&gt;I am a paragraph&lt;p/&gt;</td></tr></table></div><div style=3D"m=
+argin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvet=
+ica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;c=
+olor: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"r=
+adio" aria-checked=3D"false" aria-label=3D"&lt;p&gt;I am a paragraph&lt;\p&=
+gt;" style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-=
+radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"wo=
+rd-break: break-word;">&lt;p&gt;I am a paragraph&lt;\p&gt;</td></tr></table=
+></div></div></div><div style=3D"border: 1px solid #dadce0; padding: 20px 1=
+2px;background-color: #fff; border-radius: 8px; margin-bottom: 12px;margin-=
+bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"co=
+lor: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 16px=
+; font-weight: 400; line-height: 24px;white-space: pre-wrap;margin: 0 0 16p=
+x;">2.Which of the following elements will directly affect the vertical spa=
+cing in an HTML layout?<br><span style=3D"color: #d93025;" aria-label=3D"Re=
+quired question"> *</span></h2></div><div style=3D"padding: 0 12px;"><div s=
+tyle=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Robo=
+to,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-heigh=
+t: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div =
+role=3D"radio" aria-checked=3D"false" aria-label=3D"&lt;b&gt;" style=3D"bor=
+der: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></d=
+iv></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-w=
+ord;">&lt;b&gt;</td></tr></table></div><div style=3D"margin-top: 16px;"><ta=
+ble style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;=
+font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-=
+top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D=
+"false" aria-label=3D"&lt;break&gt;" style=3D"border: solid 2px #9aa0a6; he=
+ight: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-w=
+idth: 8px;"></td><td style=3D"word-break: break-word;">&lt;break&gt;</td></=
+tr></table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #2=
+02124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-=
+weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout=
+: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"=
+&lt;break/." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px;=
+ border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td sty=
+le=3D"word-break: break-word;">&lt;break/.</td></tr></table></div><div styl=
+e=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,=
+Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: =
+20px;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" ari=
+a-checked=3D"true" aria-label=3D"&lt;br&gt;" style=3D"border: solid 2px #5f=
+6368; height: 16px; width: 16px; border-radius: 50%;"><div style=3D"backgro=
+und-color: #5f6368; border: solid 5px #5f6368; border-radius: 50%; margin: =
+3px; height: 0; width: 0;"></div></div></td><td style=3D"min-width: 8px;"><=
+/td><td style=3D"word-break: break-word;">&lt;br&gt;</td></tr></table></div=
+></div></div><div style=3D"border: 1px solid #dadce0; padding: 20px 12px;ba=
+ckground-color: #fff; border-radius: 8px; margin-bottom: 12px;margin-bottom=
+: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #=
+202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font=
+-weight: 400; line-height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><d=
+iv><div><p>3.Why is the code below incorrect?</p></div></div><div><div styl=
+e=3D"white-space:pre-wrap">&lt;video src=3D&quot;myVid.mp4&quot; controls &=
+gt;</div></div><span style=3D"color: #d93025;" aria-label=3D"Required quest=
+ion"> *</span></h2></div><div style=3D"padding: 0 12px;"><div style=3D"marg=
+in-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica=
+,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;colo=
+r: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radi=
+o" aria-checked=3D"false" aria-label=3D"The width and height of the video m=
+ust be specified." style=3D"border: solid 2px #9aa0a6; height: 16px; width:=
+ 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><=
+td style=3D"word-break: break-word;">The width and height of the video must=
+ be specified.</td></tr></table></div><div style=3D"margin-top: 16px;"><tab=
+le style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;f=
+ont-size: 14px; font-weight: 400; line-height: 20px;margin-top: 8px; table-=
+layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"true" aria-labe=
+l=3D"The myVid.mp4 video source (src=3D) is not valid." style=3D"border: so=
+lid 2px #5f6368; height: 16px; width: 16px; border-radius: 50%;"><div style=
+=3D"background-color: #5f6368; border: solid 5px #5f6368; border-radius: 50=
+%; margin: 3px; height: 0; width: 0;"></div></div></td><td style=3D"min-wid=
+th: 8px;"></td><td style=3D"word-break: break-word;">The myVid.mp4 video so=
+urce (src=3D) is not valid.</td></tr></table></div><div style=3D"margin-top=
+: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial=
+,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;color: #70=
+757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" ari=
+a-checked=3D"false" aria-label=3D"The video element is not a self-closing t=
+ag. It should have an opening and a closing tag." style=3D"border: solid 2p=
+x #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td s=
+tyle=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">The vid=
+eo element is not a self-closing tag. It should have an opening and a closi=
+ng tag.</td></tr></table></div><div style=3D"margin-top: 16px;"><table styl=
+e=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-siz=
+e: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px=
+; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" =
+aria-label=3D"A valid self-closing tag ends with /&gt;." style=3D"border: s=
+olid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></t=
+d><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">=
+A valid self-closing tag ends with /&gt;.</td></tr></table></div></div></di=
+v><div style=3D"border: 1px solid #dadce0; padding: 20px 12px;background-co=
+lor: #fff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><d=
+iv style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font=
+-family: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 40=
+0; line-height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><p>4.What HTM=
+L code will most web browsers display as italics?<br></p><span style=3D"col=
+or: #d93025;" aria-label=3D"Required question"> *</span></h2></div><div sty=
+le=3D"padding: 0 12px;"><div style=3D"margin-top: 16px;"><table style=3D"co=
+lor: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px=
+; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table=
+-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-la=
+bel=3D"&lt;strong&gt;Hello&lt;/strong&gt;" style=3D"border: solid 2px #9aa0=
+a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D=
+"min-width: 8px;"></td><td style=3D"word-break: break-word;">&lt;strong&gt;=
+Hello&lt;/strong&gt;</td></tr></table></div><div style=3D"margin-top: 16px;=
+"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-s=
+erif;font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;ma=
+rgin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-check=
+ed=3D"false" aria-label=3D"&lt;p&gt;Hello&lt;/p&gt;" style=3D"border: solid=
+ 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><t=
+d style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">&lt;=
+p&gt;Hello&lt;/p&gt;</td></tr></table></div><div style=3D"margin-top: 16px;=
+"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-s=
+erif;font-size: 14px; font-weight: 400; line-height: 20px;margin-top: 8px; =
+table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"true" ari=
+a-label=3D"&lt;em&gt;Hello&lt;/em&gt;" style=3D"border: solid 2px #5f6368; =
+height: 16px; width: 16px; border-radius: 50%;"><div style=3D"background-co=
+lor: #5f6368; border: solid 5px #5f6368; border-radius: 50%; margin: 3px; h=
+eight: 0; width: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><t=
+d style=3D"word-break: break-word;">&lt;em&gt;Hello&lt;/em&gt;</td></tr></t=
+able></div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;=
+font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight=
+: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixe=
+d;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"&lt;di=
+v&gt;Hello&lt;/div&gt;" style=3D"border: solid 2px #9aa0a6; height: 16px; w=
+idth: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"><=
+/td><td style=3D"word-break: break-word;">&lt;div&gt;Hello&lt;/div&gt;</td>=
+</tr></table></div></div></div><div style=3D"border: 1px solid #dadce0; pad=
+ding: 20px 12px;background-color: #fff; border-radius: 8px; margin-bottom: =
+12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"auto"=
+ style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;fon=
+t-size: 16px; font-weight: 400; line-height: 24px;white-space: pre-wrap;mar=
+gin: 0 0 16px;"><div><div><p>5.Which element is the parent of=C2=A0<span st=
+yle=3D"font-weight:700">&lt;p&gt;My Paragraph&lt;/p&gt;</span>?</p></div></=
+div><div><div style=3D"white-space:pre-wrap">&lt;body&gt;<br>=C2=A0=C2=A0&l=
+t;p&gt;Paragraph 1&lt;/p&gt;<br>=C2=A0=C2=A0&lt;div&gt;<br>=C2=A0=C2=A0=C2=
+=A0=C2=A0&lt;a href=3D&quot;http://www.codecademy.com&quot;&gt;Codecademy&l=
+t;/a&gt;<br>=C2=A0=C2=A0=C2=A0=C2=A0&lt;p&gt;My Paragraph&lt;/p&gt;<br>=C2=
+=A0=C2=A0&lt;/div&gt;<br>&lt;/body&gt;</div></div><span style=3D"color: #d9=
+3025;" aria-label=3D"Required question"> *</span></h2></div><div style=3D"p=
+adding: 0 12px;"><div style=3D"margin-top: 16px;"><table style=3D"color: #2=
+02124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-=
+weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout=
+: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"=
+&lt;a&gt;" style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; b=
+order-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=
+=3D"word-break: break-word;">&lt;a&gt;</td></tr></table></div><div style=3D=
+"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helv=
+etica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px=
+;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-ch=
+ecked=3D"true" aria-label=3D"&lt;div&gt;" style=3D"border: solid 2px #5f636=
+8; height: 16px; width: 16px; border-radius: 50%;"><div style=3D"background=
+-color: #5f6368; border: solid 5px #5f6368; border-radius: 50%; margin: 3px=
+; height: 0; width: 0;"></div></div></td><td style=3D"min-width: 8px;"></td=
+><td style=3D"word-break: break-word;">&lt;div&gt;</td></tr></table></div><=
+div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family:=
+ Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-=
+height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td>=
+<div role=3D"radio" aria-checked=3D"false" aria-label=3D"&lt;body&gt;" styl=
+e=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 5=
+0%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break:=
+ break-word;">&lt;body&gt;</td></tr></table></div><div style=3D"margin-top:=
+ 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,=
+sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;color: #707=
+57a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria=
+-checked=3D"false" aria-label=3D"&lt;p&gt;" style=3D"border: solid 2px #9aa=
+0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td style=
+=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">&lt;p&gt;</=
+td></tr></table></div></div></div><div style=3D"border: 1px solid #dadce0; =
+padding: 20px 12px;background-color: #fff; border-radius: 8px; margin-botto=
+m: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"au=
+to" style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;=
+font-size: 16px; font-weight: 400; line-height: 24px;white-space: pre-wrap;=
+margin: 0 0 16px;"><p>6.Which of the following tags would contain the HTML =
+for a web page=E2=80=99s visible content?<br></p><span style=3D"color: #d93=
+025;" aria-label=3D"Required question"> *</span></h2></div><div style=3D"pa=
+dding: 0 12px;"><div style=3D"margin-top: 16px;"><table style=3D"color: #20=
+2124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-w=
+eight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout:=
+ fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"&=
+lt;about&gt;" style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px=
+; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td st=
+yle=3D"word-break: break-word;">&lt;about&gt;</td></tr></table></div><div s=
+tyle=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Robo=
+to,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-heigh=
+t: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div =
+role=3D"radio" aria-checked=3D"false" aria-label=3D"&lt;cont&gt;" style=3D"=
+border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;">=
+</div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: brea=
+k-word;">&lt;cont&gt;</td></tr></table></div><div style=3D"margin-top: 16px=
+;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-=
+serif;font-size: 14px; font-weight: 400; line-height: 20px;margin-top: 8px;=
+ table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"true" ar=
+ia-label=3D"&lt;body&gt;" style=3D"border: solid 2px #5f6368; height: 16px;=
+ width: 16px; border-radius: 50%;"><div style=3D"background-color: #5f6368;=
+ border: solid 5px #5f6368; border-radius: 50%; margin: 3px; height: 0; wid=
+th: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><td style=3D"wo=
+rd-break: break-word;">&lt;body&gt;</td></tr></table></div><div style=3D"ma=
+rgin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helveti=
+ca,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;co=
+lor: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"ra=
+dio" aria-checked=3D"false" aria-label=3D"&lt;html&gt;" style=3D"border: so=
+lid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td=
+><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">&=
+lt;html&gt;</td></tr></table></div></div></div><div style=3D"border: 1px so=
+lid #dadce0; padding: 20px 12px;background-color: #fff; border-radius: 8px;=
+ margin-bottom: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;">=
+<h2 dir=3D"auto" style=3D"color: #202124;font-family: Roboto,Helvetica,Aria=
+l,sans-serif;font-size: 16px; font-weight: 400; line-height: 24px;white-spa=
+ce: pre-wrap;margin: 0 0 16px;"><p>7.Which of the following is valid HTML f=
+or the heading tag with the smallest size and lowest rank in the hierarchy?=
+<br></p><span style=3D"color: #d93025;" aria-label=3D"Required question"> *=
+</span></h2></div><div style=3D"padding: 0 12px;"><div style=3D"margin-top:=
+ 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,=
+sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;margin-top:=
+ 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"tru=
+e" aria-label=3D"&lt;h6&gt;" style=3D"border: solid 2px #5f6368; height: 16=
+px; width: 16px; border-radius: 50%;"><div style=3D"background-color: #5f63=
+68; border: solid 5px #5f6368; border-radius: 50%; margin: 3px; height: 0; =
+width: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><td style=3D=
+"word-break: break-word;">&lt;h6&gt;</td></tr></table></div><div style=3D"m=
+argin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvet=
+ica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;c=
+olor: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"r=
+adio" aria-checked=3D"false" aria-label=3D"&lt;h3&gt;" style=3D"border: sol=
+id 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td>=
+<td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">&l=
+t;h3&gt;</td></tr></table></div><div style=3D"margin-top: 16px;"><table sty=
+le=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-si=
+ze: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8p=
+x; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false"=
+ aria-label=3D"&lt;h1&gt;" style=3D"border: solid 2px #9aa0a6; height: 16px=
+; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;=
+"></td><td style=3D"word-break: break-word;">&lt;h1&gt;</td></tr></table></=
+div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-fa=
+mily: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; =
+line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr=
+><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"&lt;h9&gt;" s=
+tyle=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius=
+: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-bre=
+ak: break-word;">&lt;h9&gt;</td></tr></table></div></div></div><div style=
+=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color: #fff; b=
+order-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div style=3D"=
+padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-family: Rob=
+oto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; line-heig=
+ht: 24px;white-space: pre-wrap;margin: 0 0 16px;"><p>8.What is the correct =
+definition of an HTML element?<br></p><span style=3D"color: #d93025;" aria-=
+label=3D"Required question"> *</span></h2></div><div style=3D"padding: 0 12=
+px;"><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-f=
+amily: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400;=
+ line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><t=
+r><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"The second, =
+or closing, HTML tag. Closing tags have a forward slash (/) inside of them.=
+" style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-rad=
+ius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-=
+break: break-word;">The second, or closing, HTML tag. Closing tags have a f=
+orward slash (/) inside of them.</td></tr></table></div><div style=3D"margi=
+n-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,=
+Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;color=
+: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio=
+" aria-checked=3D"false" aria-label=3D"HTML code that does not require open=
+ing or closing tags." style=3D"border: solid 2px #9aa0a6; height: 16px; wid=
+th: 16px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></t=
+d><td style=3D"word-break: break-word;">HTML code that does not require ope=
+ning or closing tags.</td></tr></table></div><div style=3D"margin-top: 16px=
+;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-=
+serif;font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;m=
+argin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-chec=
+ked=3D"false" aria-label=3D"The first, or opening, HTML tag." style=3D"bord=
+er: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></di=
+v></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-wo=
+rd;">The first, or opening, HTML tag.</td></tr></table></div><div style=3D"=
+margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helve=
+tica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;=
+margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-che=
+cked=3D"true" aria-label=3D"An HTML tag and the content that it contains or=
+ marks up." style=3D"border: solid 2px #5f6368; height: 16px; width: 16px; =
+border-radius: 50%;"><div style=3D"background-color: #5f6368; border: solid=
+ 5px #5f6368; border-radius: 50%; margin: 3px; height: 0; width: 0;"></div>=
+</div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: brea=
+k-word;">An HTML tag and the content that it contains or marks up.</td></tr=
+></table></div></div></div><div style=3D"border: 1px solid #dadce0; padding=
+: 20px 12px;background-color: #fff; border-radius: 8px; margin-bottom: 12px=
+;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"auto" sty=
+le=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-si=
+ze: 16px; font-weight: 400; line-height: 24px;white-space: pre-wrap;margin:=
+ 0 0 16px;"><div><div><p>9.How would the output of the code below change if=
+=C2=A0<span style=3D"font-weight:700">&lt;ul&gt;</span>=C2=A0and=C2=A0<span=
+ style=3D"font-weight:700">&lt;/ul&gt;</span>=C2=A0were changed to=C2=A0<sp=
+an style=3D"font-weight:700">&lt;ol&gt;</span>=C2=A0and=C2=A0<span style=3D=
+"font-weight:700">&lt;/ol&gt;</span>, respectively?</p></div></div><div><di=
+v style=3D"white-space:pre-wrap">&lt;ul&gt;<br>=C2=A0=C2=A0&lt;li&gt;Lorem&=
+lt;/li&gt;<br>=C2=A0=C2=A0&lt;li&gt;Ipsum&lt;/li&gt;<br>=C2=A0=C2=A0&lt;li&=
+gt;Horribilis&lt;/li&gt;<br>&lt;/ul&gt;</div></div><span style=3D"color: #d=
+93025;" aria-label=3D"Required question"> *</span></h2></div><div style=3D"=
+padding: 0 12px;"><div style=3D"margin-top: 16px;"><table style=3D"color: #=
+202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font=
+-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layou=
+t: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D=
+"The code would no longer output any visible content in the browser." style=
+=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50=
+%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: =
+break-word;">The code would no longer output any visible content in the bro=
+wser.</td></tr></table></div><div style=3D"margin-top: 16px;"><table style=
+=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size=
+: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px;=
+ table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" a=
+ria-label=3D"No changes to the output would occur." style=3D"border: solid =
+2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></td><td=
+ style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">No ch=
+anges to the output would occur.</td></tr></table></div><div style=3D"margi=
+n-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,=
+Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;margi=
+n-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=
+=3D"true" aria-label=3D"Bullet points in the output would change to numbers=
+." style=3D"border: solid 2px #5f6368; height: 16px; width: 16px; border-ra=
+dius: 50%;"><div style=3D"background-color: #5f6368; border: solid 5px #5f6=
+368; border-radius: 50%; margin: 3px; height: 0; width: 0;"></div></div></t=
+d><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">=
+Bullet points in the output would change to numbers.</td></tr></table></div=
+><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-famil=
+y: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; lin=
+e-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><t=
+d><div role=3D"radio" aria-checked=3D"false" aria-label=3D"Numbers in the o=
+utput would change to bullet points." style=3D"border: solid 2px #9aa0a6; h=
+eight: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-=
+width: 8px;"></td><td style=3D"word-break: break-word;">Numbers in the outp=
+ut would change to bullet points.</td></tr></table></div></div></div><div s=
+tyle=3D"border: 1px solid #dadce0; padding: 20px 12px;background-color: #ff=
+f; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12px;"><div style=
+=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #202124;font-family:=
+ Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-weight: 400; line-=
+height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><p>10.The following c=
+ode results in no visible output to the browser. Why?</p><div><div style=3D=
+"white-space:pre-wrap">&lt;ol&gt;<br> <br></div></div><p><span style=3D"whi=
+te-space:pre-wrap">&lt;/ol&gt; </span><br></p><span style=3D"color: #d93025=
+;" aria-label=3D"Required question"> *</span></h2></div><div style=3D"paddi=
+ng: 0 12px;"><div style=3D"margin-top: 16px;"><table style=3D"color: #20212=
+4;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weig=
+ht: 400; line-height: 20px;margin-top: 8px; table-layout: fixed;"><tr><td><=
+div role=3D"radio" aria-checked=3D"true" aria-label=3D"List items must be a=
+dded to the list." style=3D"border: solid 2px #5f6368; height: 16px; width:=
+ 16px; border-radius: 50%;"><div style=3D"background-color: #5f6368; border=
+: solid 5px #5f6368; border-radius: 50%; margin: 3px; height: 0; width: 0;"=
+></div></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-brea=
+k: break-word;">List items must be added to the list.</td></tr></table></di=
+v><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-fami=
+ly: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; li=
+ne-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><=
+td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"The &lt;ol&gt; =
+tag signifies =E2=80=9Cold=E2=80=9D information, meaning the contents will =
+never display." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16=
+px; border-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td =
+style=3D"word-break: break-word;">The &lt;ol&gt; tag signifies =E2=80=9Cold=
+=E2=80=9D information, meaning the contents will never display.</td></tr></=
+table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124=
+;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weigh=
+t: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fix=
+ed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"&lt;o=
+l&gt; is not a valid HTML element." style=3D"border: solid 2px #9aa0a6; hei=
+ght: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min-wi=
+dth: 8px;"></td><td style=3D"word-break: break-word;">&lt;ol&gt; is not a v=
+alid HTML element.</td></tr></table></div><div style=3D"margin-top: 16px;">=
+<table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-ser=
+if;font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;marg=
+in-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=
+=3D"false" aria-label=3D"The &lt;ol&gt; tag must be replaced with a &lt;ul&=
+gt; tag." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; bo=
+rder-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=
+=3D"word-break: break-word;">The &lt;ol&gt; tag must be replaced with a &lt=
+;ul&gt; tag.</td></tr></table></div></div></div><div style=3D"border: 1px s=
+olid #dadce0; padding: 20px 12px;background-color: #fff; border-radius: 8px=
+; margin-bottom: 12px;margin-bottom: 12px;"><div style=3D"padding: 0 12px;"=
+><h2 dir=3D"auto" style=3D"color: #202124;font-family: Roboto,Helvetica,Ari=
+al,sans-serif;font-size: 16px; font-weight: 400; line-height: 24px;white-sp=
+ace: pre-wrap;margin: 0 0 16px;"><p><br>11.The abbreviation HTML stands for=
+ which of the following?<br></p><span style=3D"color: #d93025;" aria-label=
+=3D"Required question"> *</span></h2></div><div style=3D"padding: 0 12px;">=
+<div style=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family=
+: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line=
+-height: 20px;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"r=
+adio" aria-checked=3D"true" aria-label=3D"HyperText Markup Language" style=
+=3D"border: solid 2px #5f6368; height: 16px; width: 16px; border-radius: 50=
+%;"><div style=3D"background-color: #5f6368; border: solid 5px #5f6368; bor=
+der-radius: 50%; margin: 3px; height: 0; width: 0;"></div></div></td><td st=
+yle=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;">HyperTex=
+t Markup Language</td></tr></table></div><div style=3D"margin-top: 16px;"><=
+table style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-seri=
+f;font-size: 14px; font-weight: 400; line-height: 20px;color: #70757a;margi=
+n-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=
+=3D"false" aria-label=3D"HyperTransfer Markdown Language" style=3D"border: =
+solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div></=
+td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word;"=
+>HyperTransfer Markdown Language</td></tr></table></div><div style=3D"margi=
+n-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,Helvetica,=
+Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: 20px;color=
+: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div role=3D"radio=
+" aria-checked=3D"false" aria-label=3D"HyperTransfer Markup Language" style=
+=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50=
+%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: =
+break-word;">HyperTransfer Markup Language</td></tr></table></div><div styl=
+e=3D"margin-top: 16px;"><table style=3D"color: #202124;font-family: Roboto,=
+Helvetica,Arial,sans-serif;font-size: 14px; font-weight: 400; line-height: =
+20px;color: #70757a;margin-top: 8px; table-layout: fixed;"><tr><td><div rol=
+e=3D"radio" aria-checked=3D"false" aria-label=3D"HyperText Markdown Languag=
+e" style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border-ra=
+dius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"word=
+-break: break-word;">HyperText Markdown Language</td></tr></table></div></d=
+iv></div><div style=3D"border: 1px solid #dadce0; padding: 20px 12px;backgr=
+ound-color: #fff; border-radius: 8px; margin-bottom: 12px;margin-bottom: 12=
+px;"><div style=3D"padding: 0 12px;"><h2 dir=3D"auto" style=3D"color: #2021=
+24;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 16px; font-wei=
+ght: 400; line-height: 24px;white-space: pre-wrap;margin: 0 0 16px;"><p><br=
+></p><div><div><p>12.The following code is supposed to display an image, bu=
+t fails to do so. Why?</p></div></div><div><div style=3D"white-space:pre-wr=
+ap">&lt;img https://www.example.com/laptop.jpg /&gt;</div></div><span style=
+=3D"color: #d93025;" aria-label=3D"Required question"> *</span></h2></div><=
+div style=3D"padding: 0 12px;"><div style=3D"margin-top: 16px;"><table styl=
+e=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;font-siz=
+e: 14px; font-weight: 400; line-height: 20px;color: #70757a;margin-top: 8px=
+; table-layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" =
+aria-label=3D"The &lt;img&gt; tag should be replaced with an &lt;image&gt; =
+tag." style=3D"border: solid 2px #9aa0a6; height: 16px; width: 16px; border=
+-radius: 50%;"></div></td><td style=3D"min-width: 8px;"></td><td style=3D"w=
+ord-break: break-word;">The &lt;img&gt; tag should be replaced with an &lt;=
+image&gt; tag.</td></tr></table></div><div style=3D"margin-top: 16px;"><tab=
+le style=3D"color: #202124;font-family: Roboto,Helvetica,Arial,sans-serif;f=
+ont-size: 14px; font-weight: 400; line-height: 20px;margin-top: 8px; table-=
+layout: fixed;"><tr><td><div role=3D"radio" aria-checked=3D"true" aria-labe=
+l=3D"The src attribute is missing and must be set equal to the image URL, e=
+nclosed in double quotation marks." style=3D"border: solid 2px #5f6368; hei=
+ght: 16px; width: 16px; border-radius: 50%;"><div style=3D"background-color=
+: #5f6368; border: solid 5px #5f6368; border-radius: 50%; margin: 3px; heig=
+ht: 0; width: 0;"></div></div></td><td style=3D"min-width: 8px;"></td><td s=
+tyle=3D"word-break: break-word;">The src attribute is missing and must be s=
+et equal to the image URL, enclosed in double quotation marks.</td></tr></t=
+able></div><div style=3D"margin-top: 16px;"><table style=3D"color: #202124;=
+font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-weight=
+: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout: fixe=
+d;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"The &l=
+t;img&gt; tag can only display .png or .svg image formats." style=3D"border=
+: solid 2px #9aa0a6; height: 16px; width: 16px; border-radius: 50%;"></div>=
+</td><td style=3D"min-width: 8px;"></td><td style=3D"word-break: break-word=
+;">The &lt;img&gt; tag can only display .png or .svg image formats.</td></t=
+r></table></div><div style=3D"margin-top: 16px;"><table style=3D"color: #20=
+2124;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px; font-w=
+eight: 400; line-height: 20px;color: #70757a;margin-top: 8px; table-layout:=
+ fixed;"><tr><td><div role=3D"radio" aria-checked=3D"false" aria-label=3D"T=
+he image URL should be all uppercase." style=3D"border: solid 2px #9aa0a6; =
+height: 16px; width: 16px; border-radius: 50%;"></div></td><td style=3D"min=
+-width: 8px;"></td><td style=3D"word-break: break-word;">The image URL shou=
+ld be all uppercase.</td></tr></table></div></div></div></div><table align=
+=3D"center" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width: 672px; =
+min-width: 154px; border-collapse: separate; border-spacing: 0 0.2em;" widt=
+h=3D"100%" role=3D"presentation"><tbody><tr height=3D"24px"><td></td></tr><=
+tr><td><a href=3D"https://docs.google.com/forms?usp=3Dmail_form_link" style=
+=3D"color: #424242; font-size: 13px;">Create your own Google Form</a></td><=
+/tr><tr><td><a href=3D"https://docs.google.com/forms/u/0/d/e/1FAIpQLSfH1Clw=
+3ZNiIE_lmv4G7wPmr6gvnzZe0FOweeCRbu8rF79zjA/reportabuse?source=3Dhttps://doc=
+s.google.com/forms/d/e/1FAIpQLSfH1Clw3ZNiIE_lmv4G7wPmr6gvnzZe0FOweeCRbu8rF7=
+9zjA/viewform&amp;usp=3Dmail_receipt_abuse" target=3D"_blank" style=3D"colo=
+r: #424242; font-size: 13px;">Report Abuse</a></td></tr></tbody></table></d=
+iv></body></html>
+--00000000000054dead05f82b6c8d--
